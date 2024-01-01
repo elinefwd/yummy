@@ -1,5 +1,5 @@
 
-import "./Questions.css";
+// import "./Questions.css";
 
 function Questions () {
     return (

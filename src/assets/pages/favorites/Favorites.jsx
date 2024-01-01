@@ -1,6 +1,6 @@
 
 import React from "react";
-import  "./Favorites.css";
+// import  "./Favorites.css";
 
 
 function Favorites () {
