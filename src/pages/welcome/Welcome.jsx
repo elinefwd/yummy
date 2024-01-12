@@ -3,11 +3,11 @@ function Welcome () {
         <>
            <code> after login </code>
             <p>
-                Welcome Name! name adjustable
+                Welcome Name! (name adjustable)
             </p>
             <a>
                 Recently Served:
-                name recepi and ratings if rated
+                name, recepi and ratings if rated from the last 5 dishes
 
             </a>
         </>

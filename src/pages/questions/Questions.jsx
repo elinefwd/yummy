@@ -45,18 +45,8 @@ function Questions () {
             Maybe
         </label>
 <p></p>
-            <a> Are there kids joining the table? </a>
-            <label>
-                <input type="radio" name="enthousiasm" value="yes"/>
-                Yes
-            </label> <label>
-            <input type="radio" name="enthousiasm" value="no"/>
-            No
-        </label> <label>
-            <input type="radio" name="enthousiasm" value="maybe"/>
-            Maybe
-        </label>
-            <p> </p>
+
+
 <button>Let's go!</button>
 </>
     )
