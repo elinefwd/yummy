@@ -12,10 +12,11 @@ function Navigation() {
                 </a>
                 <ul>
                     <li><NavLink to="/" className={({ isActive}) => isActive? 'activate link' : 'default-link'} >Home</NavLink></li>
+                    <li><NavLink to="/welcome" className={({ isActive}) => isActive? 'activate link' : 'default-link'} >Welcome</NavLink></li>
                     <li><NavLink to="/favorites" className={({ isActive}) => isActive? 'activate link' : 'default-link'} >Favorites</NavLink></li>
                     <li><NavLink to="/questions" className={({ isActive}) => isActive? 'activate link' : 'default-link'} >Questions</NavLink></li>
                     <li><NavLink to="/random" className={({ isActive}) => isActive? 'activate link' : 'default-link'} >Random</NavLink></li>
-                </ul>
+                    </ul>
 
             </div>
         </nav>
