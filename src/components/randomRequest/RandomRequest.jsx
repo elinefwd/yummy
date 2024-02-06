@@ -20,18 +20,19 @@ async function fetchData() {
             const recipeImage = recipe.image;
             const cookingInstructions = recipe.ingredientLines;
 
+
             return {
                 recipeNumber: index + 1,
                 name: recipeName,
                 image: recipeImage,
                 instructions: cookingInstructions
+
             };
         });
 
         return recipes;
 
-        // console.log (response.data.hits[0].recipe.label);
-        // return data;
+
     } catch (error) {
         console.error(error);
         throw new Error("The page has not been found. We apologize for the inconvenience.");

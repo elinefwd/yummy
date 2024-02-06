@@ -1,13 +1,14 @@
 import { useState } from "react";
-import fetchData from "../../components/randomRequest/RandomRequest.jsx";
+import fetchData from "../../components/randomRequest/RandomRequest";
+import Card from "../../components/recipeCard/RecipeCard.jsx";
 
-function Random () {
-    const [recipeData, setRecipeData] = useState(null);
+function Random() {
+    const [recipes, setRecipes] = useState([]);
 
     const handleButtonClick = async () => {
         try {
-            const data = await fetchData();
-            setRecipeData(data);
+            const newRecipes = await fetchData();
+            setRecipes(newRecipes);
         } catch (error) {
             console.error(error);
         }
@@ -16,22 +17,10 @@ function Random () {
     return (
         <>
             <button onClick={handleButtonClick}>Click me for a random recipe</button>
-
-            {recipeData && (
-                <div>
-                    <h3>Random Recipe Data:</h3>
-                    <pre>{JSON.stringify(recipeData, null, 2)}</pre>
-                </div>
-            )}
-
-            <p>
-                Hier hebben we een random optie die ook zonder inloggen of registreren te zien is
-            </p>
+            <Card recipes={recipes} /> {/* Always render the Card component, it will update when recipes change */}
+            <p>Hier hebben we een random optie die ook zonder inloggen of registreren te zien is</p>
         </>
     );
 }
 
 export default Random;
-
-
-

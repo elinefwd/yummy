@@ -10,7 +10,7 @@ import {Route, Routes} from "react-router-dom";
 // import Musicplayer from "./components/MusicComponent/MusicComponent.jsx";
 
 function App() {
-
+// 6 components
   return (
     <>
         <Navigation />
