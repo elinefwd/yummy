@@ -1,32 +1,30 @@
-import React, { useState } from 'react'
-import yummynowlogo from './assets/yummynowlogo.png'
+
 import './App.css'
-import Navigation from "./assets/navigation/navigation.jsx";
+import Navigation from "./components/navigation/navigation.jsx";
+import Home from "./pages/home/Home.jsx"
+import Favorites from "./pages/favorites/Favorites.jsx"
+import Questions from "./pages/questions/Questions.jsx"
+import Random from "./pages/random/Random.jsx"
+import Welcome from "./pages/welcome/Welcome.jsx";
+import {Route, Routes} from "react-router-dom";
+// import Musicplayer from "./components/MusicComponent/MusicComponent.jsx";
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
         <Navigation />
-      <div>
-        <a>
-          <img src={yummynowlogo} className="logo" alt="Vite logo" />
-        </a>
-       <a>
-          <img src={yummynowlogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Yummy Now</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          login {count}
-        </button>
-          <p></p>
-          <button onClick={() => setCount((count) => count + 1)}>
-              register {count}
-          </button>
-      </div>
+        {/*<Musicplayer/>*/}
+        <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/favorites" element={<Favorites />} />
+            <Route path="/questions" element={<Questions />} />
+            <Route path="/random/" element={<Random />} />
+            <Route path="/welcome" element={<Welcome />} />
+            {/*<Route path="*" element={<NotFound/>}/>*/}
+        </Routes>
+
+
     </>
   )
 }
