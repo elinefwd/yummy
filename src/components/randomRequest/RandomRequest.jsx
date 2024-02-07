@@ -3,7 +3,7 @@ import axios from "axios";
 
 async function fetchData() {
     const API_URL =
-        "https://api.edamam.com/api/recipes/v2?type=public&app_id=fb6f332d&app_key=d5b495d4b5d23179557addf9f7692086&random=true&tag=random";
+        "https://api.edamam.com/api/recipes/v2?type=public&q=random&app_id=fb6f332d&app_key=d5b495d4b5d23179557addf9f7692086&random=true";
 
     try {
         const response = await axios.get(API_URL);
@@ -19,14 +19,15 @@ async function fetchData() {
             const recipeName = recipe.label;
             const recipeImage = recipe.image;
             const cookingInstructions = recipe.ingredientLines;
+            const shareLink = recipe.shareAs;
 
 
             return {
                 recipeNumber: index + 1,
                 name: recipeName,
                 image: recipeImage,
-                instructions: cookingInstructions
-
+                instructions: cookingInstructions,
+                shareLink: shareLink
             };
         });
 

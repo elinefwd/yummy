@@ -16,7 +16,7 @@ function Random() {
 
     return (
         <>
-            <button onClick={handleButtonClick}>Click me for a random recipe</button>
+            <button onClick={handleButtonClick}>Click me for some random recipes</button>
             <Card recipes={recipes} /> {/* Always render the Card component, it will update when recipes change */}
             <p>Hier hebben we een random optie die ook zonder inloggen of registreren te zien is</p>
         </>

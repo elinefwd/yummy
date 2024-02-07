@@ -1,5 +1,5 @@
 import  './RecipeCard.css' ;
-    '';
+
 
 function Card({ recipes }) {
     return (
@@ -9,6 +9,7 @@ function Card({ recipes }) {
                     <img src={recipe.image} alt={recipe.name} />
                     <h2>{recipe.name}</h2>
                     <p>{recipe.instructions.join(', ')}</p>
+                    <a href={recipe.shareLink}  target="_blank">Link to recipe</a>
                 </div>
             ))}
         </div>
