@@ -10,8 +10,9 @@ function RecipeSearchAndDisplay() {
 
     const fetchRecipes = async (formDiet, formTemperature, formEffort) => {
         const apiEndpoint = "https://api.edamam.com/api/recipes/v2";
-        const queryParams = `?type=public&q=${encodeURIComponent(formDiet)}&health=${formTemperature}&mealType=${formEffort}&app_id=fb6f332d&app_key=d5b495d4b5d23179557addf9f7692086&random=true`;
+        const queryParams = `?type=public&q=${encodeURIComponent(formDiet)}&q=${formTemperature}&q=${formEffort}&app_id=fb6f332d&app_key=d5b495d4b5d23179557addf9f7692086&random=true`;
         const requestUrl = `${apiEndpoint}${queryParams}`;
+      console.log()
 
         try {
             const response = await fetch(requestUrl);
