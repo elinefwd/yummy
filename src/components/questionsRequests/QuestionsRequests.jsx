@@ -1,23 +1,33 @@
 import { useState } from 'react';
-import axios from "axios";
+import Card from '../recipeCard/RecipeCard'; // Make sure this path is correct
 
 function RecipeSearchAndDisplay() {
     const [diet, setDiet] = useState('anything');
-    const [temperature, setTemperature] = useState('anything');
-    const [effort, setEffort] = useState('maybe');
+    const [mealType, setMealType] = useState('anything');
+    const [cuisineType, setCuisineType] = useState('maybe');
     const [recipes, setRecipes] = useState([]);
 
-
-    const fetchRecipes = async (formDiet, formTemperature, formEffort) => {
+    const fetchRecipes = async (formDiet, formMealType, formCuisineType) => {
         const apiEndpoint = "https://api.edamam.com/api/recipes/v2";
-        const queryParams = `?type=public&q=${encodeURIComponent(formDiet)}&health=${formTemperature}&mealType=${formEffort}&app_id=fb6f332d&app_key=d5b495d4b5d23179557addf9f7692086&random=true`;
+        let queryParams = `?type=public&app_id=fb6f332d&app_key=d5b495d4b5d23179557addf9f7692086&random=true`;
+
+        if (formDiet !== 'anything') {
+            queryParams += `&health=${encodeURIComponent(formDiet)}`;
+        }
+        if (formMealType !== 'anything') {
+            queryParams += `&mealType=${encodeURIComponent(formMealType)}`;
+        }
+        if (formCuisineType !== 'maybe') {
+            queryParams += `&cuisineType=${encodeURIComponent(formCuisineType)}`;
+        }
+
         const requestUrl = `${apiEndpoint}${queryParams}`;
 
         try {
             const response = await fetch(requestUrl);
             if (response.ok) {
                 const jsonResponse = await response.json();
-                setRecipes(jsonResponse.hits || []);
+                setRecipes(jsonResponse.hits.map(hit => hit.recipe));
             } else {
                 throw new Error('Error fetching recipes');
             }
@@ -27,97 +37,65 @@ function RecipeSearchAndDisplay() {
         }
     };
 
-
-
     const handleSubmit = (event) => {
         event.preventDefault();
-        fetchRecipes(diet, temperature, effort);
+        fetchRecipes(diet, mealType, cuisineType);
     };
 
     return (
         <div>
-            {/* Questions Form */}
             <form onSubmit={handleSubmit}>
                 <fieldset>
-                    <legend>Questions for your Yummy dish:</legend>
+                    <legend>Find a Recipe</legend>
 
+                    {/* Diet Selection */}
                     <div>
                         <p>Is there a special diet?</p>
-                        <label>
-                            <input type="radio" name="diet" value="vegan"
-                                   onChange={() => setDiet('vegan')}
-                                   checked={diet === 'vegan'}/> Vegan
-                        </label>
-                        <label>
-                            <input type="radio" name="diet" value="vegetarian"
-                                   onChange={() => setDiet('vegetarian')}
-                                   checked={diet === 'vegetarian'}/> Vegetarian
-                        </label>
-                        <label>
-                            <input type="radio" name="diet" value="anything"
-                                   onChange={() => setDiet('anything')}
-                                   checked={diet === 'anything'}/> Anything
-                        </label>
+                        <label><input type="radio" name="diet" value="vegan" onChange={() => setDiet('vegan')} checked={diet === 'vegan'} /> Vegan</label>
+                        <label><input type="radio" name="diet" value="vegetarian" onChange={() => setDiet('vegetarian')} checked={diet === 'vegetarian'} /> Vegetarian</label>
+                        <label><input type="radio" name="diet" value="anything" onChange={() => setDiet('anything')} checked={diet === 'anything'} /> Anything</label>
                     </div>
 
+                    {/* Meal Type Selection */}
                     <div>
-                        <p>What temperature should the dish be?</p>
-                        <label>
-                            <input type="radio" name="temperature" value="hot"
-                                   onChange={() => setTemperature('hot')}
-                                   checked={temperature === 'hot'}/> Hot
-                        </label>
-                        <label>
-                            <input type="radio" name="temperature" value="cold"
-                                   onChange={() => setTemperature('cold')}
-                                   checked={temperature === 'cold'}/> Cold
-                        </label>
-                        <label>
-                            <input type="radio" name="temperature" value="anything"
-                                   onChange={() => setTemperature('anything')}
-                                   checked={temperature === 'anything'}/> Anything
-                        </label>
+                        <p>What type of meal are you looking for?</p>
+                        <label><input type="radio" name="mealType" value="breakfast" onChange={() => setMealType('breakfast')} checked={mealType === 'breakfast'} /> Breakfast</label>
+                        <label><input type="radio" name="mealType" value="lunch" onChange={() => setMealType('lunch')} checked={mealType === 'lunch'} /> Lunch</label>
+                        <label><input type="radio" name="mealType" value="dinner" onChange={() => setMealType('dinner')} checked={mealType === 'dinner'} /> Dinner</label>
+                        <label><input type="radio" name="mealType" value="snack" onChange={() => setMealType('snack')} checked={mealType === 'snack'} /> Snack</label>
+                        <label><input type="radio" name="mealType" value="anything" onChange={() => setMealType('anything')} checked={mealType === 'anything'} /> Anything</label>
                     </div>
 
+                    {/* Cuisine Type Selection */}
                     <div>
-                        <p>Do you feel like putting some effort into the dish?</p>
-                        <label>
-                            <input type="radio" name="effort" value="yes"
-                                   onChange={() => setEffort('yes')}
-                                   checked={effort === 'yes'}/> Yes
-                        </label>
-                        <label>
-                            <input type="radio" name="effort" value="no"
-                                   onChange={() => setEffort('no')}
-                                   checked={effort === 'no'}/> No
-                        </label>
-                        <label>
-                            <input type="radio" name="effort" value="maybe"
-                                   onChange={() => setEffort('maybe')}
-                                   checked={effort === 'maybe'}/> Maybe
-                        </label>
+                        <p>Which cuisine would you like to try?</p>
+                        <label><input type="radio" name="cuisineType" value="italian" onChange={() => setCuisineType('italian')} checked={cuisineType === 'italian'} /> Italian</label>
+                        <label><input type="radio" name="cuisineType" value="japanese" onChange={() => setCuisineType('japanese')} checked={cuisineType === 'japanese'} /> Japanese</label>
+                        <label><input type="radio" name="cuisineType" value="mexican" onChange={() => setCuisineType('mexican')} checked={cuisineType === 'mexican'} /> Mexican</label>
+                        <label><input type="radio" name="cuisineType" value="maybe" onChange={() => setCuisineType('maybe')} checked={cuisineType === 'maybe'} /> Global</label>
                     </div>
+
+                    <button type="submit">Find Recipes</button>
                 </fieldset>
-                <button type="submit">Let's go!</button>
             </form>
 
-            {/* Displaying Recipes */}
-            <div>
-                {recipes.length > 0 ? (
-                    recipes.map((recipeData, index) => (
-                        <div key={index}>
-                            <h2>{recipeData.recipe.label}</h2>
-                            <img src={recipeData.recipe.image} alt={recipeData.recipe.label} />
-                            {/* ... other details ... */}
-                        </div>
-                    ))
-                ) : (
-                    <p>No recipes to display.</p>
-                )}
-            </div>
+            {/* Rendering the Card component for each recipe */}
+            {recipes.length > 0 ? (
+                <div className="recipes-container">
+                    {recipes.map((recipe, index) => (
+                        <Card key={recipe.uri} recipe={{
+                            image: recipe.image,
+                            name: recipe.label,
+                            instructions: recipe.ingredientLines, // this will depend on what the API returns
+                            shareLink: recipe.url
+                        }} />
+                    ))}
+                </div>
+            ) : (
+                <p>No recipes found. Try adjusting your search criteria.</p>
+            )}
         </div>
     );
 }
 
 export default RecipeSearchAndDisplay;
-
