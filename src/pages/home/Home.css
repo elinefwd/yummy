@@ -3,6 +3,17 @@ ul{
     margin: 25px;
 }
 
-body{
+body {
     font-family: "Ubuntu-Italic", sans-serif;
+}
+
+/* Home.css */
+.modal-content .close {
+    color: #cc9900; /* Set the default color */
+    cursor: pointer; /* Set the default cursor on the close button */
+}
+
+.modal-content .close:hover {
+    color: #9900cc; /* Change the color on hover */
+    cursor: pointer; /* Change the cursor on hover */
 }
