@@ -1,35 +1,46 @@
+import { useState } from "react";
+import LoginForm from "../../components/loginform/LoginForm";
+import RegistrationForm from "../../components/registrationform/RegistrationForm";
+import "./Home.css";
 
-import {useState} from "react";
-// import "./Home.css"
+function Home() {
+    const [showLoginModal, setShowLoginModal] = useState(false);
+    const [showRegistrationModal, setShowRegistrationModal] = useState(false);
 
+    const handleLoginButtonClick = () => {
+        setShowLoginModal(true);
+        setShowRegistrationModal(false); // Ensure that the other form is closed
+    };
 
-function
+    const handleCloseLoginModal = () => {
+        setShowLoginModal(false);
+    };
 
-Home() {
-    const [count, setCount] = useState(0)
+    const handleRegisterButtonClick = () => {
+        setShowRegistrationModal(true);
+        setShowLoginModal(false); // Ensure that the other form is closed
+    };
 
-    return( <>
+    const handleCloseRegistrationModal = () => {
+        setShowRegistrationModal(false);
+    };
+
+    return (
+        <>
             <div>
-                <a>
-                    {/*<img src={yummynowlogo} className="logo" alt="logo" />*/}
-                </a> <a>
-                {/*<img src={yummynowlogo} className="spinlogo" alt="spinninglogo" />*/}
-            </a>
+                {/* Your logo and spinning logo here */}
             </div>
             <h1>Yummy Now</h1>
             <div className="card">
-                <button onClick={() => setCount((count) => count + 1)}>
-                    login {count}
-                </button>
+                <button onClick={handleLoginButtonClick}>Login</button>
                 <p></p>
-                <button onClick={() => setCount((count) => count + 1)}>
-                    register {count}
-                </button>
+                <button onClick={handleRegisterButtonClick}>Register</button>
             </div>
+
+            <LoginForm showLogin={showLoginModal} handleCloseLogin={handleCloseLoginModal} />
+            <RegistrationForm showRegistration={showRegistrationModal} handleCloseRegistration={handleCloseRegistrationModal} />
         </>
-
-
-
-    )
+    );
 }
-export default Home
+
+export default Home;
