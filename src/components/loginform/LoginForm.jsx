@@ -1,36 +1,35 @@
-import React, { useState } from "react";
+import {useState, useContext, useEffect} from "react";
 import PropTypes from "prop-types";
-import axios from "axios";
+import axios from 'axios'; // Import Axios here
+import { AuthContext } from "../AuthContextProvider/AuthContextProvider.jsx";
 
 function LoginForm({ showLogin, handleCloseLogin }) {
-    const [username, setUsername] = useState(""); // Update 'email' to 'username'
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const { login, logout, authState } = useContext(AuthContext);
 
+    // Here is your Axios login function integrated
     const handleFormSubmit = async (e) => {
         e.preventDefault();
 
-        const formData = {
-            username: username, // Update 'email' to 'username'
-            password: password,
-        };
-
         try {
-            const response = await axios.post(
-                "https://api.datavortex.nl/yummynow/users/authenticate",
-                formData,
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                        "X-Api-Key": "yummynow:xL5T8mawKxLSD7GWHLTF",
-                    },
-                }
-            );
-            console.log("Login successful! Received token:", response.data.token);
-            handleCloseLogin(); // Close the login form after successful login
+            const response = await axios.post("https://api.datavortex.nl/yummynow/users/authenticate", {
+                username: username,
+                password: password
+            });
+
+            const userToken = response.data.jwt;
+            console.log (response.data.jwt)
+            login(userToken);
         } catch (error) {
-            console.error("An error occurred during login:", error);
-            // Handle login error (e.g., display a message to the user)
+            console.error('An error occurred during login:', error);
         }
+    };
+    useEffect(() => {
+      console.log(authState);
+    }, [authState]);
+    const handleLogout = () => {
+        logout();
     };
 
     if (!showLogin) {
@@ -40,13 +39,13 @@ function LoginForm({ showLogin, handleCloseLogin }) {
     return (
         <div className="modal">
             <div className="modal-content">
-        <span className="close" onClick={handleCloseLogin}>
-          &times;
-        </span>
+                <span className="close" onClick={handleCloseLogin}>
+                    &times;
+                </span>
                 <h2>Login Form</h2>
                 <form onSubmit={handleFormSubmit} className="login-form">
                     <label>
-                        Username: {/* Change label to reflect 'Username' */}
+                        Username:
                         <input
                             type="text"
                             value={username}
@@ -63,6 +62,9 @@ function LoginForm({ showLogin, handleCloseLogin }) {
                     </label>
                     <button type="submit">Login</button>
                 </form>
+                {authState && (
+                    <button onClick={handleLogout}>Logout</button>
+                )}
             </div>
         </div>
     );
@@ -74,3 +76,4 @@ LoginForm.propTypes = {
 };
 
 export default LoginForm;
+
