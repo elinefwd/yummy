@@ -1,31 +1,55 @@
-// post request to backend
-// get token from backend
-// decode token
-// add token to request header
-// put data in local storage
-// persist on refresh using useEffect and useState
-
-// auth-context.js
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
+import {jwtDecode} from 'jwt-decode';
 
 export const AuthContext = createContext();
 
-export const AuthProvider = ({ children }) => {
-    const [loggedIn, setLoggedIn] = useState(false); // Example state for login status
+const AuthProvider = ({ children }) => {
+    const [authState, setAuthState] = useState({
+        user: null,
+        status: 'pending',
+    });
 
-    const login = () => {
-        // Add your login logic here
-        setLoggedIn(true);
+    useEffect(() => {
+        const token = localStorage.getItem('jwt');
+        if (token) {
+            const decoded = jwtDecode(token);
+            setAuthState({
+                user: {
+                    username: decoded.username,
+                    id: decoded.id,
+                },
+                status: 'done',
+            });
+        } else {
+            setAuthState({
+                user: null,
+                status: 'done',
+            });
+        }
+    }, []);
+
+    const login = (jwt) => {
+        const decoded = jwtDecode(jwt);
+        localStorage.setItem('jwt', jwt);
+        setAuthState({
+            user: {
+                username: decoded.sub,
+                id: decoded.id,
+            },
+            status: 'done',
+        });
     };
 
     const logout = () => {
-        // Add your logout logic here
-        setLoggedIn(false);
+        localStorage.removeItem('jwt');
+        setAuthState({ user: null, status: 'done' });
     };
 
     return (
-        <AuthContext.Provider value={{ loggedIn, login, logout }}>
-            {children}
+        <AuthContext.Provider value={{ authState, login, logout }}>
+            {authState.status === 'pending' ? <p>Loading...</p> : children}
         </AuthContext.Provider>
     );
 };
+
+export default AuthProvider;
