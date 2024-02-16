@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
-import { AuthContext } from '../AuthContextProvider/AuthContextProvider.jsx';
+import { AuthContext } from '../AuthContextProvider/AuthContextProvider';
 import logoyn from '../../assets/ynl/logoyn.png';
 import './navigation.css';
 
@@ -11,23 +11,27 @@ function Navigation() {
     return (
         <nav>
             <div className="nav-container">
-                <a>
+                <NavLink to="/" className="logo-link">
                     <img src={logoyn} className="logo" alt="logo" />
-                </a>
-                <ul>
+                </NavLink>
+                <ul className="nav-links">
                     <li>
-                        <NavLink to="/" className={({ isActive }) => isActive ? 'activate link' : 'default-link'} >Home</NavLink>
+                        <NavLink to="/" className={({ isActive }) => isActive ? 'active-link' : 'link'}>Home</NavLink>
                     </li>
                     <li className={isClickable ? "nav-item" : "nav-item disabled"}>
-                        {isClickable ?
+                        {isClickable ? (
                             <NavLink to="/welcome" className={({ isActive }) => isActive ? 'activate link' : 'default-link'} >Welcome</NavLink>
-                            : <span>Welcome</span>}
+                        ) : (
+                            <span>Welcome</span>
+                        )}
                         {!isClickable && <div className="no-go-overlay" />}
                     </li>
                     <li className={isClickable ? "nav-item" : "nav-item disabled"}>
-                        {isClickable ?
+                        {isClickable ? (
                             <NavLink to="/favorites" className={({ isActive }) => isActive ? 'activate link' : 'default-link'} >Favorites</NavLink>
-                            : <span>Favorites</span>}
+                        ) : (
+                            <span>Favorites</span>
+                        )}
                         {!isClickable && <div className="no-go-overlay" />}
                     </li>
                     <li>
@@ -37,6 +41,11 @@ function Navigation() {
                         <NavLink to="/questions" className={({ isActive }) => isActive ? 'activate link' : 'default-link'} >Questions</NavLink>
                     </li>
                 </ul>
+                {authState.user && (
+                    <button onClick={logout} className="logout-button">
+                        Logout
+                    </button>
+                )}
             </div>
         </nav>
     );

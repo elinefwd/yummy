@@ -61,7 +61,7 @@ const LoginForm = ({ showLogin, handleCloseLogin }) => {
                     </label>
                     <button type="submit">Login</button>
                 </form>
-                {authState.user && <button onClick={handleLogout}>Logout</button>}
+
             </div>
         </div>
     );
