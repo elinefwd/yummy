@@ -1,33 +1,34 @@
-import {useState, useContext, useEffect} from "react";
-import PropTypes from "prop-types";
-import axios from 'axios'; // Import Axios here
-import { AuthContext } from "../AuthContextProvider/AuthContextProvider.jsx";
+import { useState, useContext, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import axios from 'axios';
+import { AuthContext } from '../AuthContextProvider/AuthContextProvider.jsx';
 
-function LoginForm({ showLogin, handleCloseLogin }) {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const { login, logout, authState } = useContext(AuthContext);
+const LoginForm = ({ showLogin, handleCloseLogin }) => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
-    // Here is your Axios login function integrated
+    const { login, authState, logout } = useContext(AuthContext);
+
     const handleFormSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await axios.post("https://api.datavortex.nl/yummynow/users/authenticate", {
+            const response = await axios.post('https://api.datavortex.nl/yummynow/users/authenticate', {
                 username: username,
-                password: password
+                password: password,
             });
 
-            const userToken = response.data.jwt;
-            console.log (response.data.jwt)
-            login(userToken);
+            const jwt = response.data.jwt;
+            login(jwt);
         } catch (error) {
             console.error('An error occurred during login:', error);
         }
     };
+
     useEffect(() => {
-      console.log(authState);
+        console.log(authState);
     }, [authState]);
+
     const handleLogout = () => {
         logout();
     };
@@ -39,9 +40,7 @@ function LoginForm({ showLogin, handleCloseLogin }) {
     return (
         <div className="modal">
             <div className="modal-content">
-                <span className="close" onClick={handleCloseLogin}>
-                    &times;
-                </span>
+                <span className="close" onClick={handleCloseLogin}>&times;</span>
                 <h2>Login Form</h2>
                 <form onSubmit={handleFormSubmit} className="login-form">
                     <label>
@@ -62,13 +61,11 @@ function LoginForm({ showLogin, handleCloseLogin }) {
                     </label>
                     <button type="submit">Login</button>
                 </form>
-                {authState && (
-                    <button onClick={handleLogout}>Logout</button>
-                )}
+                {authState.user && <button onClick={handleLogout}>Logout</button>}
             </div>
         </div>
     );
-}
+};
 
 LoginForm.propTypes = {
     showLogin: PropTypes.bool.isRequired,
@@ -76,4 +73,3 @@ LoginForm.propTypes = {
 };
 
 export default LoginForm;
-
