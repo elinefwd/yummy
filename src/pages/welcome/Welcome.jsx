@@ -4,7 +4,7 @@ function Welcome () {
         <>
            <code> after login </code>
             <p>
-                Welcome Name! (name adjustable)
+                Welcome ! (name adjustable)
             </p>
             <a>
 
