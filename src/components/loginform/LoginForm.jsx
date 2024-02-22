@@ -17,9 +17,9 @@ const LoginForm = ({ showLogin, handleCloseLogin }) => {
                 username: username,
                 password: password,
             });
-
-const user = response.data.user;
-console.log(user);
+// //
+// const user = response.data.user.username;
+// console.log(user);
             const jwt = response.data.jwt;
             login(jwt);
         } catch (error) {

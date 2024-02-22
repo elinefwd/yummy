@@ -7,6 +7,7 @@ const AuthProvider = ({ children }) => {
     const [authState, setAuthState] = useState({
         user: null,
         status: 'pending',
+        likedRecipes: [] // New liked recipes state
     });
 
     useEffect(() => {
@@ -15,15 +16,17 @@ const AuthProvider = ({ children }) => {
             const decoded = jwtDecode(token);
             setAuthState({
                 user: {
-                    username: decoded.username,
+                    username: decoded.sub,
                     id: decoded.id,
                 },
                 status: 'done',
+                likedRecipes: [] // Initialize with empty array
             });
         } else {
             setAuthState({
                 user: null,
                 status: 'done',
+                likedRecipes: [] // Initialize with empty array
             });
         }
     }, []);
@@ -37,16 +40,26 @@ const AuthProvider = ({ children }) => {
                 id: decoded.id,
             },
             status: 'done',
+            likedRecipes: [] // Clear liked recipes on login
         });
     };
 
     const logout = () => {
         localStorage.removeItem('jwt');
-        setAuthState({ user: null, status: 'done' });
+        setAuthState({ user: null, status: 'done', likedRecipes: [] }); // Clear liked recipes on logout
     };
 
+    const updateLikedRecipes = (newLikedRecipes) => {
+        setAuthState(prevState => ({
+            ...prevState,
+            likedRecipes: [...newLikedRecipes]
+        }));
+
+
+};
+
     return (
-        <AuthContext.Provider value={{ authState, login, logout }}>
+        <AuthContext.Provider value={{ authState, login, logout, updateLikedRecipes }}>
             {authState.status === 'pending' ? <p>Loading...</p> : children}
         </AuthContext.Provider>
     );

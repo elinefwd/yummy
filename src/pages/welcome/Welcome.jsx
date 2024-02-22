@@ -2,14 +2,14 @@ import { useContext } from 'react';
 import { AuthContext } from '../../components/AuthContextProvider/AuthContextProvider';
 
 function Welcome() {
-    const { user } = useContext(AuthContext);
+    const {authState} = useContext(AuthContext);
 
     return (
         <>
             <code> after login </code>
             <p>
-                Welcome to Yummy Now!
-                {user && <span>Welcome {user.username} !</span>}
+                Welcome to Yummy Now
+                {authState.user.username && <span> {authState.user.username} !</span>}
             </p>
             <a>
                 Recently Served:

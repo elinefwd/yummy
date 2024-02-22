@@ -1,27 +1,36 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import './RecipeCard.css';
+import { AuthContext } from '../AuthContextProvider/AuthContextProvider';
+import favorites from "../../pages/favorites/Favorites.jsx"; // Updated import
 
-function Card({ recipe, username }) {
+function Card({ recipe }) {
+    const { authState, updateLikedRecipes } = useContext(AuthContext); // Accessing authState and updateLikedRecipes from AuthContext
     const [liked, setLiked] = useState(false);
+    const username = authState.user.username;
+    const jwt = localStorage.getItem('jwt');
 
     const handleLike = async () => {
         if (!liked) {
             try {
                 await axios.put(
-                    `https://api.datavortex.nl/yummynow/users/${username}`,
-                    recipe,
+                    `https://api.datavortex.nl/yummynow/users/${username}`, // Update the API endpoint as per your requirements
+                    { recipe }, // Update the payload as needed
                     {
                         headers: {
                             'Content-Type': 'application/json',
-                            'X-Api-Key': 'yummynow:xL5T8mawKxLSD7GWHLTF' // Replace with your actual API key
+                            'Authorization': `Bearer ${jwt}`,
                         }
                     }
                 );
-                setLiked(true);
+
+                // Update likedRecipes in the context after successful like
+                const newLikedRecipes = [...authState.likedRecipes, recipe];
+                updateLikedRecipes(newLikedRecipes);
+                setLiked(true); // Update local state to reflect the recipe is now liked
+                console.log('Added to favorites', recipe);
             } catch (error) {
                 console.error('Error while adding to favorites:', error);
-                // Handle error, possibly show a notification to the user
             }
         }
     };

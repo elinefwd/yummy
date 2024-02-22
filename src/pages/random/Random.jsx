@@ -19,7 +19,7 @@ function Random() {
             <button onClick={handleButtonClick}>Click me for some random recipes</button>
             <div className="recipes-container"> {/* You might want to add some styling for this container */}
                 {recipes.map((recipe, index) => (
-                    <Card key={recipe.uri || index} recipe={recipe} />
+                    <Card key={recipe.uri || index} recipe={recipe}  />
                     // Assuming recipe.uri is a unique identifier;
                     // If not, use recipe.label or fall back to the index
                 ))}
