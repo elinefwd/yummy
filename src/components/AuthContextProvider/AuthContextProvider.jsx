@@ -7,8 +7,23 @@ const AuthProvider = ({ children }) => {
     const [authState, setAuthState] = useState({
         user: null,
         status: 'pending',
-        likedRecipes: [] // New liked recipes state
+        likedRecipes: [
+            {
+                image: '...',
+                name: '...',
+                instructions: ['...', '...'],
+                shareLink: '...'
+            },
+            {
+                image: '...',
+                name: '...',
+                instructions: ['...', '...'],
+                shareLink: '...'
+            },
+            // Add more recipes as needed
+        ]
     });
+
 
     useEffect(() => {
         const token = localStorage.getItem('jwt');

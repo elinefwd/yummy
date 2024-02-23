@@ -12,10 +12,11 @@ function Card({ recipe }) {
 
     const handleLike = async () => {
         if (!liked) {
+          console.log('recipe', recipe);
             try {
                 await axios.put(
                     `https://api.datavortex.nl/yummynow/users/${username}`, // Update the API endpoint as per your requirements
-                    { recipe }, // Update the payload as needed
+                    { info : JSON.stringify(recipe) }, // Update the payload as needed
                     {
                         headers: {
                             'Content-Type': 'application/json',

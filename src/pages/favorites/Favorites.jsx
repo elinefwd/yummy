@@ -20,6 +20,8 @@ function Favorites() {
                         }
                     });
                     // setFavorites(response.data.favorites || []); // Ensure response.data.favorites is not undefined
+                    console.log(response.data);
+setFavorites(JSON.parse(response.data)); // Ensure response.data.favorites is not undefined
                 } catch (error) {
                     console.error('Error fetching favorites:', error);
                 }
@@ -27,11 +29,11 @@ function Favorites() {
         };
         fetchFavorites();
     }, [username, jwt]);
-
-    useEffect(() => {
-        // Now directly using likedRecipes from AuthContext
-        setFavorites(likedRecipes);
-    }, [likedRecipes]); // Listen for changes in likedRecipes
+    //
+    // useEffect(() => {
+    //     // Now directly using likedRecipes from AuthContext
+    //     setFavorites(likedRecipes);
+    // }, [likedRecipes]); // Listen for changes in likedRecipes
 
     if (!favorites || favorites.length === 0) {
         return <p>No favorites yet.</p>;
@@ -39,7 +41,7 @@ function Favorites() {
 
     return (
         <div>
-            {favorites.map((recipe, index) => (
+            {favorites && favorites.map((recipe, index) => (
                 <Card
                     key={index} // Advised to use a unique identifier if available
                     recipe={{

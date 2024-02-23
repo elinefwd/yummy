@@ -9,6 +9,7 @@ function Random() {
         try {
             const newRecipes = await fetchData();
             setRecipes(newRecipes);
+            console.log(newRecipes);
         } catch (error) {
             console.error('Failed to fetch random recipes:', error);
         }
