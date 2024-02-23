@@ -17,13 +17,16 @@ const LoginForm = ({ showLogin, handleCloseLogin }) => {
                 username: username,
                 password: password,
             });
-
+// //
+// const user = response.data.user.username;
+// console.log(user);
             const jwt = response.data.jwt;
             login(jwt);
         } catch (error) {
             console.error('An error occurred during login:', error);
         }
     };
+
 
     useEffect(() => {
         console.log(authState);
