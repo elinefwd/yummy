@@ -5,7 +5,7 @@ import { AuthContext } from "../../components/AuthContextProvider/AuthContextPro
 
 function Favorites() {
     const [favorites, setFavorites] = useState([]);
-    const { authState, likedRecipes } = useContext(AuthContext); // Correctly extract likedRecipes here
+    const { authState } = useContext(AuthContext); // Extract authState here
     const username = authState.user?.username; // Optional chaining for safety
     const jwt = localStorage.getItem('jwt');
 
@@ -19,9 +19,8 @@ function Favorites() {
                             'Authorization': `Bearer ${jwt}`,
                         }
                     });
-                    // setFavorites(response.data.favorites || []); // Ensure response.data.favorites is not undefined
-                    console.log(response.data);
-setFavorites([response.data]); // Ensure response.data.favorites is not undefined
+
+                    setFavorites(response.data); // Set liked recipes from backend response
                 } catch (error) {
                     console.error('Error fetching favorites:', error);
                 }
@@ -29,11 +28,6 @@ setFavorites([response.data]); // Ensure response.data.favorites is not undefine
         };
         fetchFavorites();
     }, [username, jwt]);
-    //
-    // useEffect(() => {
-    //     // Now directly using likedRecipes from AuthContext
-    //     setFavorites(likedRecipes);
-    // }, [likedRecipes]); // Listen for changes in likedRecipes
 
     if (!favorites || favorites.length === 0) {
         return <p>No favorites yet.</p>;
@@ -41,15 +35,10 @@ setFavorites([response.data]); // Ensure response.data.favorites is not undefine
 
     return (
         <div>
-            {favorites && favorites.map((recipe, index) => (
+            {favorites.map((recipe, index) => (
                 <Card
-                    key={index} // Advised to use a unique identifier if available
-                    recipe={{
-                        image: recipe.image,
-                        name: recipe.label,
-                        instructions: recipe.ingredientLines,
-                        shareLink: recipe.url
-                    }}
+                    key={index}
+                    recipe={recipe} // Pass recipe object directly to Card component
                 />
             ))}
         </div>

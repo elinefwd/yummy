@@ -2,21 +2,24 @@ import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import './RecipeCard.css';
 import { AuthContext } from '../AuthContextProvider/AuthContextProvider';
-import favorites from "../../pages/favorites/Favorites.jsx"; // Updated import
+import favorites from "../../pages/favorites/Favorites.jsx";
 
 function Card({ recipe }) {
-    const { authState, updateLikedRecipes } = useContext(AuthContext); // Accessing authState and updateLikedRecipes from AuthContext
+    const { authState, updateLikedRecipes } = useContext(AuthContext);
     const [liked, setLiked] = useState(false);
     const username = authState.user.username;
     const jwt = localStorage.getItem('jwt');
 
     const handleLike = async () => {
         if (!liked) {
-          console.log('recipe', recipe);
+            console.log('recipe', recipe);
             try {
+                const likedRecipesArray = [...authState.likedRecipes, recipe]; // Construct array of liked recipes
+                const payload = JSON.stringify(likedRecipesArray); // Serialize array to JSON
+
                 await axios.put(
-                    `https://api.datavortex.nl/yummynow/users/${username}`, // Update the API endpoint as per your requirements
-                    { info : JSON.stringify(recipe) }, // Update the payload as needed
+                    `https://api.datavortex.nl/yummynow/users/${username}`,
+                    { info: payload }, // Send array of liked recipes in the payload
                     {
                         headers: {
                             'Content-Type': 'application/json',
@@ -25,10 +28,8 @@ function Card({ recipe }) {
                     }
                 );
 
-                // Update likedRecipes in the context after successful like
-                const newLikedRecipes = [...authState.likedRecipes, recipe];
-                updateLikedRecipes(newLikedRecipes);
-                setLiked(true); // Update local state to reflect the recipe is now liked
+                updateLikedRecipes(likedRecipesArray); // Update likedRecipes in the context
+                setLiked(true);
                 console.log('Added to favorites', recipe);
             } catch (error) {
                 console.error('Error while adding to favorites:', error);
