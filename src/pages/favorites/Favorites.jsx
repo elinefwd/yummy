@@ -21,7 +21,7 @@ function Favorites() {
                     });
                     // setFavorites(response.data.favorites || []); // Ensure response.data.favorites is not undefined
                     console.log(response.data);
-setFavorites(JSON.parse(response.data)); // Ensure response.data.favorites is not undefined
+setFavorites([response.data]); // Ensure response.data.favorites is not undefined
                 } catch (error) {
                     console.error('Error fetching favorites:', error);
                 }
