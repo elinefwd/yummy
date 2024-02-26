@@ -6,26 +6,48 @@ import { AuthContext } from '../AuthContextProvider/AuthContextProvider.jsx';
 const LoginForm = ({ showLogin, handleCloseLogin }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [loginError, setLoginError] = useState(''); // State for the login error message
 
     const { login, authState, logout } = useContext(AuthContext);
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
+        setLoginError(''); // Clear any existing error messages
 
         try {
             const response = await axios.post('https://api.datavortex.nl/yummynow/users/authenticate', {
                 username: username,
                 password: password,
             });
-// //
-// const user = response.data.user.username;
-// console.log(user);
+
             const jwt = response.data.jwt;
             login(jwt);
         } catch (error) {
             console.error('An error occurred during login:', error);
+
+            // Initializing a generic error message
+            let errorMessage = 'Login failed, please try again.';
+
+            // Error response handling
+            if (error.response && typeof error.response.data === 'string') {
+                switch (error.response.data) {
+                    case 'User not found':
+                        errorMessage = 'Username incorrect, please try again.';
+                        break;
+                    case 'Invalid username/password': // Adjust this case based on the exact error message from your API
+                        errorMessage = 'Password incorrect, please try again.';
+                        break;
+                    // You can add more cases here if there are more specific error messages from your API
+                    default:
+                        // A generic error message for other cases that aren't explicitly handled
+                        errorMessage = 'Login failed, please try again.';
+                }
+            }
+            setLoginError(errorMessage);
         }
     };
+
+
 
 
     useEffect(() => {
@@ -62,9 +84,9 @@ const LoginForm = ({ showLogin, handleCloseLogin }) => {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </label>
+                    {loginError && <p className="login-error">{loginError}</p>}
                     <button type="submit">Login</button>
                 </form>
-
             </div>
         </div>
     );
