@@ -75,7 +75,7 @@ function RecipeSearchAndDisplay() {
                         <label><input type="radio" name="cuisineType" value="maybe" onChange={() => setCuisineType('maybe')} checked={cuisineType === 'maybe'} /> Global</label>
                     </div>
 
-                    <button type="submit">Find Recipes</button>
+                    <button type="submit">Find recipes</button>
                 </fieldset>
             </form>
 
@@ -92,7 +92,7 @@ function RecipeSearchAndDisplay() {
                     ))}
                 </div>
             ) : (
-                <p>No recipes found. Try adjusting your search criteria.</p>
+                <p>Please adjust your search criteria.</p>
             )}
         </div>
     );
