@@ -12,8 +12,11 @@ function Welcome() {
                 {authState.user.username && <span> {authState.user.username} !</span>}
             </p>
             <a>
-                Recently Served:
-                name, recipe, and ratings if rated from the last 5 dishes
+              You are here to reward yourself with delicious recipes.
+                <br></br>
+                Enjoy your time here!
+                <br></br>
+                And don't forget to check out the <a href="/questions">questions page</a>!
             </a>
         </>
     );

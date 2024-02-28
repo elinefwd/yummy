@@ -1,48 +1,40 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import './RecipeCard.css';
 import { AuthContext } from '../AuthContextProvider/AuthContextProvider';
 
-function Card({ recipe, isFavoritePage = false, onRemove }) {
+function Card({ recipe, isFavoritePage = false }) {
     const { authState, updateLikedRecipes } = useContext(AuthContext);
-    const [liked, setLiked] = useState(false);
-    const username = authState.user.username;
+    const [liked, setLiked] = useState(authState.likedRecipes.some((likedRecipe) => likedRecipe === recipe));
     const jwt = localStorage.getItem('jwt');
 
-    // Determine if the recipe is initially liked when the component mounts
-    useEffect(() => {
-        const isInitiallyLiked = authState.likedRecipes.some((likedRecipe) => likedRecipe.id === recipe.id);
-        setLiked(isInitiallyLiked);
-    }, [authState.likedRecipes, recipe.id]);
+    const [showPopup, setShowPopup] = useState(false);
 
     const handleLike = async () => {
-        // If the card is rendered on the favorites page and the 'Unlike' button is clicked
-        if (isFavoritePage && liked) {
-            // Perform removal action
-            onRemove(recipe);
-        } else if (!liked) {
-            // Handle liking the recipe (adding to favorites)
+        if (authState && authState.user && authState.user.username) {
+            const updatedLikedRecipes = [...authState.likedRecipes, recipe];
             try {
-                const likedRecipesArray = [...authState.likedRecipes, recipe];
                 await axios.put(
-                    `https://api.datavortex.nl/yummynow/users/${username}`,
-                    { info: JSON.stringify(likedRecipesArray) },
+                    `https://api.datavortex.nl/yummynow/users/${authState.user.username}`,
+                    { info: JSON.stringify(updatedLikedRecipes) },
                     {
                         headers: {
                             'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${jwt}`,
+                            Authorization: `Bearer ${jwt}`,
                         }
                     }
                 );
-                updateLikedRecipes(likedRecipesArray); // Update likedRecipes in the context
+                updateLikedRecipes(updatedLikedRecipes);
                 setLiked(true);
             } catch (error) {
-                console.error('Error while adding to favorites:', error);
+                console.error('Error while liking the recipe:', error);
             }
+        } else {
+            setShowPopup(true); // Show the popup for not logged in users
         }
     };
 
-    const buttonText = isFavoritePage ? 'Unlike' : liked ? 'Liked' : 'Like';
+    const buttonText = isFavoritePage ? 'Liked' : liked ? 'Liked' : 'Like';
 
     return (
         <div className="card">
@@ -53,6 +45,7 @@ function Card({ recipe, isFavoritePage = false, onRemove }) {
             <button className={`like-button ${liked ? 'liked' : ''}`} onClick={handleLike}>
                 {buttonText}
             </button>
+            {showPopup && <div className="popup">You need to be logged in to use the like function</div>}
         </div>
     );
 }

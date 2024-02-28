@@ -1,16 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import Card from '../../components/recipeCard/RecipeCard';
-import { AuthContext } from "../../components/AuthContextProvider/AuthContextProvider.jsx";
+import { AuthContext } from '../../components/AuthContextProvider/AuthContextProvider.jsx';
 
 function Favorites() {
     const [favorites, setFavorites] = useState([]);
-    const { authState, updateLikedRecipes } = useContext(AuthContext);
+    const { authState } = useContext(AuthContext);
     const username = authState.user?.username;
     const jwt = localStorage.getItem('jwt');
 
     useEffect(() => {
-        // Fetch the initial list of favorite recipes
         const fetchFavorites = async () => {
             if (username && jwt) {
                 try {
@@ -19,11 +18,16 @@ function Favorites() {
                         {
                             headers: {
                                 'Content-Type': 'application/json',
-                                'Authorization': `Bearer ${jwt}`,
+                                Authorization: `Bearer ${jwt}`,
                             },
                         }
                     );
-                    setFavorites(response.data); // Adjust this line based on your data structure
+                    // Ensure response.data is an array and set favorites
+                    if (Array.isArray(response.data)) {
+                        setFavorites(response.data);
+                    } else {
+                        setFavorites([]);
+                    }
                 } catch (error) {
                     console.error('Error fetching favorites:', error);
                 }
@@ -32,48 +36,44 @@ function Favorites() {
         fetchFavorites();
     }, [username, jwt]);
 
-    const handleRemoveFromFavorites = async (recipeToRemove) => {
-        // Update the favorites locally to immediately reflect the change in the UI
-        const updatedFavorites = favorites.filter(recipe => recipe.id !== recipeToRemove.id);
-        setFavorites(updatedFavorites);
-
-        // Optionally, update the application state if you're maintaining it
-        updateLikedRecipes(updatedFavorites); // This assumes you have such a function in your context
-
-        // Send the updated list to the server
+    const emptyFavorites = async () => {
         try {
             await axios.put(
                 `https://api.datavortex.nl/yummynow/users/${username}`,
-                { info: JSON.stringify(updatedFavorites) }, // Adjust payload structure as necessary
+                { info: " " },
                 {
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${jwt}`,
+                        Authorization: `Bearer ${jwt}`,
                     },
                 }
             );
-            console.log("Favorites updated successfully.");
+            setFavorites([]);
+            console.log('Favorites emptied successfully.');
         } catch (error) {
-            console.error('Error updating favorites:', error);
+            console.error('Error emptying favorites:', error);
         }
     };
 
-    if (!favorites || favorites.length === 0) {
-        return <p>No favorites yet.</p>;
-    }
-
     return (
         <div>
-            {favorites.map((recipe) => (
-                <Card
-                    key={recipe.id}
-                    recipe={recipe}
-                    isFavoritePage={true}
-                    onRemove={handleRemoveFromFavorites} // Passing the handler to each Card
-                />
-            ))}
+            {favorites.length > 0 ? (
+                <>
+                    {favorites.map((recipe) => (
+                        <Card
+                            key={recipe.id}
+                            recipe={recipe}
+                            isFavoritePage={true}
+                        />
+                    ))}
+                    <button onClick={emptyFavorites}>Empty Favorites</button>
+                </>
+            ) : (
+                <p>No favorites yet.</p>
+            )}
         </div>
     );
 }
 
 export default Favorites;
+
