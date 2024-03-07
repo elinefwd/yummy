@@ -11,60 +11,40 @@ function Card({ recipe, isFavoritePage = false }) {
     const [showPopup, setShowPopup] = useState(false);
 
     const handleLike = async () => {
+        console.log ('authstate, liked recipes' , authState.likedRecipes)
         if (authState && authState.user && authState.user.username) {
-            const alreadyLiked = authState.likedRecipes.some((likedRecipe) => likedRecipe === recipe);
-            if (alreadyLiked) {
-                // Unlike the recipe
-                const updatedLikedRecipes = authState.likedRecipes.filter((likedRecipe) => likedRecipe !== recipe);
-                try {
-                    await axios.put(
-                        `https://api.yourbackend.com/users/${authState.user.username}`,
-                        { info: JSON.stringify(updatedLikedRecipes) },
-                        {
-                            headers: {
-                                'Content-Type': 'application/json',
-                                Authorization: `Bearer ${jwt}`,
-                            }
+            const updatedLikedRecipes = [...authState.likedRecipes, recipe];
+            try {
+                await axios.put(
+                    `https://api.datavortex.nl/yummynow/users/${authState.user.username}`,
+                    { info: JSON.stringify(updatedLikedRecipes) },
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: `Bearer ${jwt}`,
                         }
-                    );
-                    updateLikedRecipes(updatedLikedRecipes);
-                    setLiked(false);
-                } catch (error) {
-                    console.error('Error while unliking the recipe:', error);
-                }
-            } else {
-                // Like the recipe
-                const updatedLikedRecipes = [...authState.likedRecipes, recipe];
-                try {
-                    await axios.put(
-                        `https://api.yourbackend.com/users/${authState.user.username}`,
-                        { info: JSON.stringify(updatedLikedRecipes) },
-                        {
-                            headers: {
-                                'Content-Type': 'application/json',
-                                Authorization: `Bearer ${jwt}`,
-                            }
-                        }
-                    );
-                    updateLikedRecipes(updatedLikedRecipes);
-                    setLiked(true);
-                } catch (error) {
-                    console.error('Error while liking the recipe:', error);
-                }
+                    }
+                );
+                console.log ('updatedLikedRecipes' , updatedLikedRecipes)
+                updateLikedRecipes(updatedLikedRecipes);
+                setLiked(true);
+            } catch (error) {
+                console.error('Error while liking the recipe:', error);
             }
         } else {
-            setShowPopup(true); // Show the popup for not logged-in users
+            setShowPopup(true); // Show the popup for not logged in users
         }
     };
 
-    const buttonText = isFavoritePage ? 'Liked' : liked ? 'Unlike' : 'Like';
+    const buttonText = isFavoritePage ? 'Liked' : liked ? 'Liked' : 'Like';
 
     return (
         <div className="card">
+
             <img src={recipe.image} alt={recipe.name} />
             <h2>{recipe.name}</h2>
             <p>{Array.isArray(recipe.instructions) ? recipe.instructions.join(', ') : "No instructions available."}</p>
-            <a href={recipe.shareLink} target="_blank" rel="noopener noreferrer">Link to the recipe</a>
+            <a href={recipe.shareLink} target="_blank" rel="noopener noreferrer"><u>Link to the recipe</u></a>
             <button className={`like-button ${liked ? 'liked' : ''}`} onClick={handleLike}>
                 {buttonText}
             </button>
@@ -74,4 +54,3 @@ function Card({ recipe, isFavoritePage = false }) {
 }
 
 export default Card;
-

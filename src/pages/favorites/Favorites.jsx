@@ -14,7 +14,7 @@ function Favorites() {
             if (username && jwt) {
                 try {
                     const response = await axios.get(
-                        `https://api.yourbackend.com/users/${username}/favorites`, // Ensure this matches your actual API endpoint.
+                        `https://api.datavortex.nl/yummynow/users/${username}/info`,
                         {
                             headers: {
                                 'Content-Type': 'application/json',
@@ -22,24 +22,27 @@ function Favorites() {
                             },
                         }
                     );
-                    // Handle response to ensure it's in the expected format.
-                    setFavorites(Array.isArray(response.data) ? response.data : []);
+                    console.log ('array', Array.isArray(response.data))
+                    console.log ('response.data', response.data)
+                    if (Array.isArray(response.data)) {
+                        setFavorites(response.data);
+                    } else {
+                        setFavorites([]);
+                    }
                 } catch (error) {
                     console.error('Error fetching favorites:', error);
                 }
             }
         };
-
         fetchFavorites();
-    }, [username, jwt]);
+    }, [username, jwt]); // Fetch favorites on initial load or any change in username/jwt
 
     const emptyFavorites = async () => {
-        if (!username || !jwt) return; // Add guard clause for safety
-
         try {
+            // Clear favorites only when the button is clicked
             await axios.put(
-                `https://api.yourbackend.com/users/${username}/favorites/clear`, // Endpoint that clears the user's favorites. Adjust as necessary.
-                {},
+                `https://api.datavortex.nl/yummynow/users/${username}`,
+                { info: " " },
                 {
                     headers: {
                         'Content-Type': 'application/json',
@@ -47,7 +50,8 @@ function Favorites() {
                     },
                 }
             );
-            setFavorites([]);
+            setFavorites([]); // Update the state only if the favorites are successfully cleared
+            console.log('Favorites emptied successfully.');
         } catch (error) {
             console.error('Error emptying favorites:', error);
         }
