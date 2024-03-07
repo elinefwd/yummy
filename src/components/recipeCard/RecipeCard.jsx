@@ -12,29 +12,52 @@ function Card({ recipe, isFavoritePage = false }) {
 
     const handleLike = async () => {
         if (authState && authState.user && authState.user.username) {
-            const updatedLikedRecipes = [...authState.likedRecipes, recipe];
-            try {
-                await axios.put(
-                    `https://api.datavortex.nl/yummynow/users/${authState.user.username}`,
-                    { info: JSON.stringify(updatedLikedRecipes) },
-                    {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: `Bearer ${jwt}`,
+            const alreadyLiked = authState.likedRecipes.some((likedRecipe) => likedRecipe === recipe);
+            if (alreadyLiked) {
+                // Unlike the recipe
+                const updatedLikedRecipes = authState.likedRecipes.filter((likedRecipe) => likedRecipe !== recipe);
+                try {
+                    await axios.put(
+                        `https://api.yourbackend.com/users/${authState.user.username}`,
+                        { info: JSON.stringify(updatedLikedRecipes) },
+                        {
+                            headers: {
+                                'Content-Type': 'application/json',
+                                Authorization: `Bearer ${jwt}`,
+                            }
                         }
-                    }
-                );
-                updateLikedRecipes(updatedLikedRecipes);
-                setLiked(true);
-            } catch (error) {
-                console.error('Error while liking the recipe:', error);
+                    );
+                    updateLikedRecipes(updatedLikedRecipes);
+                    setLiked(false);
+                } catch (error) {
+                    console.error('Error while unliking the recipe:', error);
+                }
+            } else {
+                // Like the recipe
+                const updatedLikedRecipes = [...authState.likedRecipes, recipe];
+                try {
+                    await axios.put(
+                        `https://api.yourbackend.com/users/${authState.user.username}`,
+                        { info: JSON.stringify(updatedLikedRecipes) },
+                        {
+                            headers: {
+                                'Content-Type': 'application/json',
+                                Authorization: `Bearer ${jwt}`,
+                            }
+                        }
+                    );
+                    updateLikedRecipes(updatedLikedRecipes);
+                    setLiked(true);
+                } catch (error) {
+                    console.error('Error while liking the recipe:', error);
+                }
             }
         } else {
-            setShowPopup(true); // Show the popup for not logged in users
+            setShowPopup(true); // Show the popup for not logged-in users
         }
     };
 
-    const buttonText = isFavoritePage ? 'Liked' : liked ? 'Liked' : 'Like';
+    const buttonText = isFavoritePage ? 'Liked' : liked ? 'Unlike' : 'Like';
 
     return (
         <div className="card">
@@ -51,3 +74,4 @@ function Card({ recipe, isFavoritePage = false }) {
 }
 
 export default Card;
+

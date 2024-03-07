@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import Card from '../recipeCard/RecipeCard'; // Make sure this path is correct
+import './QuestionsRequests.css'; // Make sure this path is correct
+
 
 function RecipeSearchAndDisplay() {
     const [diet, setDiet] = useState('anything');

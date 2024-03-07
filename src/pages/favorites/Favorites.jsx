@@ -14,7 +14,7 @@ function Favorites() {
             if (username && jwt) {
                 try {
                     const response = await axios.get(
-                        `https://api.datavortex.nl/yummynow/users/${username}/info`,
+                        `https://api.yourbackend.com/users/${username}/favorites`, // Ensure this matches your actual API endpoint.
                         {
                             headers: {
                                 'Content-Type': 'application/json',
@@ -22,25 +22,24 @@ function Favorites() {
                             },
                         }
                     );
-                    // Ensure response.data is an array and set favorites
-                    if (Array.isArray(response.data)) {
-                        setFavorites(response.data);
-                    } else {
-                        setFavorites([]);
-                    }
+                    // Handle response to ensure it's in the expected format.
+                    setFavorites(Array.isArray(response.data) ? response.data : []);
                 } catch (error) {
                     console.error('Error fetching favorites:', error);
                 }
             }
         };
+
         fetchFavorites();
     }, [username, jwt]);
 
     const emptyFavorites = async () => {
+        if (!username || !jwt) return; // Add guard clause for safety
+
         try {
             await axios.put(
-                `https://api.datavortex.nl/yummynow/users/${username}`,
-                { info: " " },
+                `https://api.yourbackend.com/users/${username}/favorites/clear`, // Endpoint that clears the user's favorites. Adjust as necessary.
+                {},
                 {
                     headers: {
                         'Content-Type': 'application/json',
@@ -49,7 +48,6 @@ function Favorites() {
                 }
             );
             setFavorites([]);
-            console.log('Favorites emptied successfully.');
         } catch (error) {
             console.error('Error emptying favorites:', error);
         }
@@ -76,4 +74,3 @@ function Favorites() {
 }
 
 export default Favorites;
-
