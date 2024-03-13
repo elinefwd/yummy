@@ -34,7 +34,7 @@ function Home() {
             <div className="card">
                 <button onClick={handleLoginButtonClick}>Login</button>
                 <p></p>
-                <button onClick={handleRegisterButtonClick}>Register</button>
+                <button onClick={handleRegisterButtonClick}>Registrate</button>
             </div>
 
             <LoginForm showLogin={showLoginModal} handleCloseLogin={handleCloseLoginModal} />
