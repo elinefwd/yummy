@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../AuthContextProvider/AuthContextProvider';
-import logoyn from '../../assets/ynl/logoyn.png';
+// import logoyn from '../../assets/ynl/logoyn.png';
+import logo from '../../assets/ynl/yummynowlogo.png';
 import './navigation.css';
 
 function Navigation() {
@@ -12,7 +13,7 @@ function Navigation() {
         <nav>
             <div className="nav-container">
                 <NavLink to="/" className="logo-link">
-                    <img src={logoyn} className="logo" alt="logo" />
+                    <img src={logo} className="logo" alt="logo" />
                 </NavLink>
                 <ul className="nav-links">
                     <li>
