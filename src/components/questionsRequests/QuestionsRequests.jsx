@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import Card from '../recipeCard/RecipeCard'; // Make sure this path is correct
-import './QuestionsRequests.css'; // Make sure this path is correct
-
 
 function RecipeSearchAndDisplay() {
     const [diet, setDiet] = useState('anything');
@@ -77,7 +75,7 @@ function RecipeSearchAndDisplay() {
                         <label><input type="radio" name="cuisineType" value="maybe" onChange={() => setCuisineType('maybe')} checked={cuisineType === 'maybe'} /> Global</label>
                     </div>
 
-                    <button type="submit">Find recipes</button>
+                    <button type="submit">Find Recipes</button>
                 </fieldset>
             </form>
 
@@ -94,7 +92,7 @@ function RecipeSearchAndDisplay() {
                     ))}
                 </div>
             ) : (
-                <p>Please adjust your search criteria.</p>
+                <p>No recipes found. Try adjusting your search criteria.</p>
             )}
         </div>
     );

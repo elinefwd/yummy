@@ -7,7 +7,7 @@ import  AuthProvider  from './components/AuthContextProvider/AuthContextProvider
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-        <AuthProvider>
+        <AuthProvider> {/* Wrap the App with the AuthProvider */}
             <Router>
                 <App />
             </Router>

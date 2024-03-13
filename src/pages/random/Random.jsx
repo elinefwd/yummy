@@ -1,7 +1,6 @@
 import { useState } from "react";
 import fetchData from "../../components/randomRequest/RandomRequest";
 import Card from "../../components/recipeCard/RecipeCard.jsx";
-import "./Random.css";
 
 function Random() {
     const [recipes, setRecipes] = useState([]);
@@ -26,7 +25,7 @@ function Random() {
                     // If not, use recipe.label or fall back to the index
                 ))}
             </div>
-            <p>Laat je verassen door random opties.</p>
+            <p>Hier hebben we een random optie die ook zonder inloggen of registreren te zien is</p>
         </>
     );
 }

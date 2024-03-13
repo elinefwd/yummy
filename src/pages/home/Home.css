@@ -17,9 +17,3 @@ body {
     color: #9900cc; /* Change the color on hover */
     cursor: pointer; /* Change the cursor on hover */
 }
-
-body{
-    background-image: url('../../assets/ynl/btbackground.jpg');
-    background-size: cover; /* Cover the entire background */
-}
-
