@@ -8,7 +8,7 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 # yummy
 
-import screenshot from './public/screenshot.png'
+[//]: # (import screenshot from './public/screenshot.png')
 
 Yummynow is a web application that allows users to search for recipes and like them.
 The user can search for recipes by the random button on the random page or by the find recipes
