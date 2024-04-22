@@ -101,10 +101,10 @@ const AuthProvider = ({ children }) => {
     const updateLikedRecipes = (newLikedRecipes) => {
         setAuthState(prevState => ({
             ...prevState,
-            likedRecipes: [...prevState.likedRecipes, ...newLikedRecipes]
+            likedRecipes: newLikedRecipes // Update likedRecipes with the new array directly
         }));
-
     };
+
 
     return (
         <AuthContext.Provider value={{ authState, login, logout, updateLikedRecipes }}>
