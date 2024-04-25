@@ -1,7 +1,8 @@
 import { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { AuthContext } from '../AuthContextProvider/AuthContextProvider.jsx';
+import { AuthContext } from '../../components/AuthContextProvider/AuthContextProvider.jsx';
+import Button from "../../components/Button.jsx";
 
 const LoginForm = ({ showLogin, handleCloseLogin }) => {
     const [username, setUsername] = useState('');
@@ -85,7 +86,7 @@ const LoginForm = ({ showLogin, handleCloseLogin }) => {
                         />
                     </label>
                     {loginError && <p className="login-error">{loginError}</p>}
-                    <button type="submit">Login</button>
+                    <Button type="submit" text="Login" onClick={handleFormSubmit} />
                 </form>
             </div>
         </div>

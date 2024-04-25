@@ -4,6 +4,7 @@ import { AuthContext } from '../AuthContextProvider/AuthContextProvider';
 // import logoyn from '../../assets/ynl/logoyn.png';
 import logo from '../../assets/ynl/yummynowlogo.png';
 import './navigation.css';
+import Button from "../Button.jsx";
 
 function Navigation() {
     const { authState, logout } = useContext(AuthContext);
@@ -43,9 +44,7 @@ function Navigation() {
                     </li>
                 </ul>
                 {authState.user && (
-                    <button onClick={logout} className="logout-button">
-                        Logout
-                    </button>
+                    <Button onClick={logout} text="Logout" className="logout-button" />
                 )}
             </div>
         </nav>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import PropTypes from 'prop-types';
-import axios from 'axios'; // Import Axios
+import axios from 'axios';
+import Button from "../../components/Button.jsx"; // Import Axios
 
 function RegistrationForm({ showRegistration, handleCloseRegistration }) {
     const [username, setUsername] = useState(""); // Change state variable to 'username'
@@ -52,7 +53,8 @@ function RegistrationForm({ showRegistration, handleCloseRegistration }) {
                         Password:
                         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                     </label>
-                    <button type="submit">Register</button>
+                    <Button type="submit" text="Register" onClick={handleFormSubmit} />
+
                 </form>
             </div>
         </div>
