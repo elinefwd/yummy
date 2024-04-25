@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import Card from '../recipeCard/RecipeCard'; // Make sure this path is correct
 import './QuestionsRequests.css';
-import Button from "../Button.jsx"; // Make sure this path is correct
+import Button from "../Button.jsx";
+import axios from "axios"; // Make sure this path is correct
 
 
 function RecipeSearchAndDisplay() {
@@ -33,18 +34,14 @@ function RecipeSearchAndDisplay() {
         const requestUrl = `${apiEndpoint}${queryParams}`;
 
         try {
-            const response = await fetch(requestUrl);
-            if (response.ok) {
-                const jsonResponse = await response.json();
-                setRecipes(jsonResponse.hits.map(hit => hit.recipe));
-            } else {
-                throw new Error('Error fetching recipes');
-            }
+            const response = await axios.get(requestUrl);
+            setRecipes(response.data.hits.map(hit => hit.recipe));
         } catch (error) {
             console.error('Error fetching recipes:', error);
             setRecipes([]);
         }
     };
+
 
     const handleSubmit = (event) => {
         event.preventDefault();

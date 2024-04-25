@@ -27,9 +27,6 @@ function Home() {
 
     return (
         <>
-            <div>
-                {/* Your logo and spinning logo here */}
-            </div>
             <h1>Yummy Now</h1>
             <div className="card">
                 <button onClick={handleLoginButtonClick}>Login</button>
