@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Card from '../recipeCard/RecipeCard'; // Make sure this path is correct
-import './QuestionsRequests.css'; // Make sure this path is correct
+import './QuestionsRequests.css';
+import Button from "../Button.jsx"; // Make sure this path is correct
 
 
 function RecipeSearchAndDisplay() {
@@ -86,7 +87,8 @@ function RecipeSearchAndDisplay() {
                         <label><input type="radio" name="cuisineType" value="maybe" onChange={() => { setCuisineType('maybe'); setIsCuisineTypeSelected(false); }} checked={cuisineType === 'maybe'} /> Global</label>
                        </div>
 
-                    <button type="submit">Find recipes</button>
+                    <Button type="submit" text="Find recipes" onClick={handleSubmit} />
+
                 </fieldset>
             </form>
 

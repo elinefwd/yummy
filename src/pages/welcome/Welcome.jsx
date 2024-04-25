@@ -20,7 +20,7 @@ function Welcome() {
                 <br></br>
                 Enjoy your time here,
                 <br></br>
-                and don't forget to check out the <a href="/questions"><u>questions page</u></a>!
+                and don't forget to check out the <a href="/questions"><u>questions page</u></a> :)
             </a>
 
             <div>

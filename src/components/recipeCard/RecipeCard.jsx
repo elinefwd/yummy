@@ -4,6 +4,7 @@ import './RecipeCard.css';
 import { AuthContext } from '../AuthContextProvider/AuthContextProvider';
 import handleLikeHelper from "../../helpers/likeHelper.jsx";
 import handleRemoveHelper from "../../helpers/removeHelper.jsx";
+import Button from "../Button.jsx";
 
 function Card({ recipe, isFavoritePage = false }) {
     const { authState, updateLikedRecipes } = useContext(AuthContext);
@@ -29,9 +30,12 @@ function Card({ recipe, isFavoritePage = false }) {
             <h2>{recipe.name}</h2>
             <p>{Array.isArray(recipe.instructions) ? recipe.instructions.join(', ') : "No instructions available."}</p>
             <a href={recipe.shareLink} target="_blank" rel="noopener noreferrer"><u>Link to the recipe</u></a>
-            <button className={`like-button ${isFavoritePage ? 'remove-button' : (liked ? 'liked' : '')}`} onClick={buttonAction}>
-                {buttonText}
-            </button>
+            <Button
+                type="button"
+                onClick={buttonAction}
+                className={`like-button ${isFavoritePage ? 'remove-button' : (liked ? 'liked' : '')}`}
+                text={buttonText}
+            />
             {showPopup && <div className="popup">You need to be logged in to use the like function</div>}
         </div>
     );
