@@ -36,29 +36,29 @@ function RegistrationForm({ showRegistration, handleCloseRegistration }) {
     }
 
     return (
-        <div className="modal">
-            <div className="modal-content">
-                <span className="close" onClick={handleCloseRegistration}>&times;</span>
+        <section className="modal">
+            <article className="modal-content">
+                <button className="close" onClick={handleCloseRegistration}>Close</button>
                 <h2>Register Form</h2>
                 <form onSubmit={handleFormSubmit} className="registration-form">
-                    <label>
-                        Username: {/* Update label for username */}
-                        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
-                    </label>
-                    <label>
-                        Email:
-                        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                    </label>
-                    <label>
-                        Password:
-                        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                    </label>
+                    <fieldset>
+                        <legend>User Information</legend>
+                        <label htmlFor="username">Username:
+                            <input id="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+                        </label>
+                        <label htmlFor="email">Email:
+                            <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                        </label>
+                        <label htmlFor="password">Password:
+                            <input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                        </label>
+                    </fieldset>
                     <Button type="submit" text="Register" onClick={handleFormSubmit} />
-
                 </form>
-            </div>
-        </div>
+            </article>
+        </section>
     );
+
 }
 
 RegistrationForm.propTypes = {

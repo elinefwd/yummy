@@ -44,7 +44,7 @@ function Navigation() {
                     </li>
                 </ul>
                 {authState.user && (
-                    <Button onClick={logout} text="Logout" className="logout-button" />
+                    <Button onClick={logout} type="button" text="Logout" className="logout-button" />
                 )}
             </div>
         </nav>

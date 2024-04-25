@@ -9,7 +9,7 @@ const LoginForm = ({ showLogin, handleCloseLogin }) => {
     const [password, setPassword] = useState('');
     const [loginError, setLoginError] = useState(''); // State for the login error message
 
-    const { login, authState, logout } = useContext(AuthContext);
+    const {login, authState, logout} = useContext(AuthContext);
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
@@ -49,53 +49,54 @@ const LoginForm = ({ showLogin, handleCloseLogin }) => {
     };
 
 
-
-
     useEffect(() => {
         console.log(authState);
     }, [authState]);
 
-    // const handleLogout = () => {
-    //     logout();
-    // };
 
     if (!showLogin) {
         return null;
     }
 
     return (
-        <div className="modal">
-            <div className="modal-content">
-                <span className="close" onClick={handleCloseLogin}>&times;</span>
+        <section className="modal">
+            <article className="modal-content">
+                <button className="close" onClick={handleCloseLogin}>Close</button>
                 <h2>Login Form</h2>
                 <form onSubmit={handleFormSubmit} className="login-form">
-                    <label>
-                        Username:
-                        <input
-                            type="text"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                    </label>
-                    <label>
-                        Password:
-                        <input
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </label>
-                    {loginError && <p className="login-error">{loginError}</p>}
-                    <Button type="submit" text="Login" onClick={handleFormSubmit} />
-                </form>
-            </div>
-        </div>
-    );
-};
+                    <fieldset>
+                        <legend>Login Information</legend>
+                        <label htmlFor="usernameInput">Username:
+                            <input
+                                id="usernameInput"
+                                type="text"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                        </label>
+                        <label htmlFor="passwordInput">Password:
+                            <input
+                                id="passwordInput"
+                                type="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </label>
+                    </fieldset>
 
-LoginForm.propTypes = {
-    showLogin: PropTypes.bool.isRequired,
-    handleCloseLogin: PropTypes.func.isRequired,
-};
+                    {loginError && <p className="login-error">{loginError}</p>}
+
+                    <Button type="submit" text="Login" onClick={handleFormSubmit}/>
+                </form>
+            </article>
+        </section>
+    );
+
+
+    LoginForm.propTypes = {
+        showLogin: PropTypes.bool.isRequired,
+        handleCloseLogin: PropTypes.func.isRequired,
+    };
+}
 
 export default LoginForm;
