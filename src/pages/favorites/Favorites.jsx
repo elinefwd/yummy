@@ -1,15 +1,17 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 import Card from '../../components/recipeCard/RecipeCard';
-import { AuthContext } from '../../components/AuthContextProvider/AuthContextProvider.jsx';
+import {AuthContext} from '../../components/AuthContextProvider/AuthContextProvider.jsx';
 import handleLikeHelper from "../../helpers/likeHelper.jsx";
 import handleRemoveHelper from "../../helpers/removeHelper.jsx";
 
 function Favorites() {
     const [favorites, setFavorites] = useState([]);
-    const { authState, updateLikedRecipes } = useContext(AuthContext);
+    const {authState, updateLikedRecipes} = useContext(AuthContext);
     const username = authState.user?.username;
     const jwt = localStorage.getItem("jwt");
+    const [error, setError] = useState(null);
+
 
     const fetchFavorites = async () => {
         if (username && jwt) {
@@ -29,7 +31,7 @@ function Favorites() {
                     setFavorites([]);
                 }
             } catch (error) {
-                console.error("Error fetching favorites:", error);
+                setError("Error fetching favorites. Please try again.");
             }
         }
     };
@@ -52,6 +54,8 @@ function Favorites() {
 
     return (
         <div>
+            {error && <p className="error-message">{error}</p>}
+
             {favorites.length > 0 ? (
                 favorites.map((recipe, index) => (
                     <Card

@@ -1,12 +1,14 @@
-import { useState } from "react";
+import {useState} from "react";
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import Button from "../../components/Button.jsx"; // Import Axios
 
-function RegistrationForm({ showRegistration, handleCloseRegistration }) {
+function RegistrationForm({showRegistration, handleCloseRegistration}) {
     const [username, setUsername] = useState(""); // Change state variable to 'username'
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMsg, setErrorMsg] = useState(null);
+
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
@@ -24,10 +26,9 @@ function RegistrationForm({ showRegistration, handleCloseRegistration }) {
                     "X-Api-Key": "yummynow:xL5T8mawKxLSD7GWHLTF"
                 }
             });
-            console.log("User registered successfully:", response.data);
             handleCloseRegistration(); // Close the registration form after successful registration
         } catch (error) {
-            console.error("An error occurred while registering user:", error);
+            setErrorMsg("An error occurred while registering user: " + error.message);
         }
     };
 
@@ -40,20 +41,27 @@ function RegistrationForm({ showRegistration, handleCloseRegistration }) {
             <article className="modal-content">
                 <button className="close" onClick={handleCloseRegistration}>Close</button>
                 <h2>Register Form</h2>
+                {errorMsg && (
+                    <div className="error-message">
+                        {errorMsg}
+                    </div>
+                )}
                 <form onSubmit={handleFormSubmit} className="registration-form">
                     <fieldset>
                         <legend>User Information</legend>
                         <label htmlFor="username">Username:
-                            <input id="username" type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+                            <input id="username" type="text" value={username}
+                                   onChange={(e) => setUsername(e.target.value)}/>
                         </label>
                         <label htmlFor="email">Email:
-                            <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                            <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
                         </label>
                         <label htmlFor="password">Password:
-                            <input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <input id="password" type="password" value={password}
+                                   onChange={(e) => setPassword(e.target.value)}/>
                         </label>
                     </fieldset>
-                    <Button type="submit" text="Register" onClick={handleFormSubmit} />
+                    <Button type="submit" text="Register" onClick={handleFormSubmit}/>
                 </form>
             </article>
         </section>

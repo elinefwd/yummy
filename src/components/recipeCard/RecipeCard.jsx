@@ -1,13 +1,13 @@
-import React, { useContext, useState } from 'react';
+import React, {useContext, useState} from 'react';
 import axios from 'axios';
 import './RecipeCard.css';
-import { AuthContext } from '../AuthContextProvider/AuthContextProvider';
+import {AuthContext} from '../AuthContextProvider/AuthContextProvider';
 import handleLikeHelper from "../../helpers/likeHelper.jsx";
 import handleRemoveHelper from "../../helpers/removeHelper.jsx";
 import Button from "../Button.jsx";
 
-function Card({ recipe, isFavoritePage = false }) {
-    const { authState, updateLikedRecipes } = useContext(AuthContext);
+function Card({recipe, isFavoritePage = false}) {
+    const {authState, updateLikedRecipes} = useContext(AuthContext);
     const [liked, setLiked] = useState(authState.likedRecipes.some((likedRecipe) => likedRecipe === recipe));
     const jwt = localStorage.getItem('jwt');
 
@@ -26,7 +26,7 @@ function Card({ recipe, isFavoritePage = false }) {
 
     return (
         <div className="card">
-            <img src={recipe.image} alt={recipe.name} />
+            <img src={recipe.image} alt={recipe.name}/>
             <h2>{recipe.name}</h2>
             <p>{Array.isArray(recipe.instructions) ? recipe.instructions.join(', ') : "No instructions available."}</p>
             <a href={recipe.shareLink} target="_blank" rel="noopener noreferrer"><u>Link to the recipe</u></a>

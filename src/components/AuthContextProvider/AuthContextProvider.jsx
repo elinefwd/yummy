@@ -1,10 +1,10 @@
-import { createContext, useState, useEffect } from 'react';
+import {createContext, useState, useEffect} from 'react';
 import {jwtDecode} from 'jwt-decode';
 import axios from "axios";
 
 export const AuthContext = createContext();
 
-const AuthProvider = ({ children }) => {
+const AuthProvider = ({children}) => {
     const [authState, setAuthState] = useState({
         user: null,
         status: 'pending',
@@ -93,9 +93,8 @@ const AuthProvider = ({ children }) => {
 
     const logout = () => {
         localStorage.removeItem('jwt');
-        setAuthState({ user: null, status: 'done', likedRecipes: [] }); // Clear liked recipes on logout
+        setAuthState({user: null, status: 'done', likedRecipes: []}); // Clear liked recipes on logout
     };
-
 
 
     const updateLikedRecipes = (newLikedRecipes) => {
@@ -107,7 +106,7 @@ const AuthProvider = ({ children }) => {
 
 
     return (
-        <AuthContext.Provider value={{ authState, login, logout, updateLikedRecipes }}>
+        <AuthContext.Provider value={{authState, login, logout, updateLikedRecipes}}>
             {authState.status === 'pending' ? <p>Loading...</p> : children}
         </AuthContext.Provider>
     );

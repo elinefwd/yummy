@@ -1,12 +1,13 @@
 import axios from 'axios';
 
 const handleLikeHelper = async (authState, recipe, jwt, updateLikedRecipes, setLiked, setShowPopup) => {
+
     if (authState && authState.user && authState.user.username) {
         const updatedLikedRecipes = [...authState.likedRecipes, recipe];
         try {
             await axios.put(
                 `https://api.datavortex.nl/yummynow/users/${authState.user.username}`,
-                { info: JSON.stringify(updatedLikedRecipes) },
+                {info: JSON.stringify(updatedLikedRecipes)},
                 {
                     headers: {
                         'Content-Type': 'application/json',
