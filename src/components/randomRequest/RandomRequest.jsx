@@ -1,4 +1,5 @@
 import axios from "axios";
+
 // import { useState, useEffect } from "react";
 
 async function fetchData() {
@@ -9,7 +10,7 @@ async function fetchData() {
         const response = await axios.get(API_URL);
 
         // const data = response.data.hits[0].recipe.label;
-        console.log (response.data);
+        console.log(response.data);
 
 
         const hits = response.data.hits.slice(0, 5);

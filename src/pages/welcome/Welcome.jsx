@@ -1,7 +1,8 @@
-import { useContext } from 'react';
-import { AuthContext } from '../../components/AuthContextProvider/AuthContextProvider';
+import {useContext} from 'react';
+import {AuthContext} from '../../components/AuthContextProvider/AuthContextProvider';
 import './Welcome.css';
 import logo from '../../assets/ynl/yummynowlogo.png';
+
 function Welcome() {
     const {authState} = useContext(AuthContext);
 
@@ -10,12 +11,12 @@ function Welcome() {
             <code>
                 Welcome to Yummy Now
                 {authState.user.username && <span> {authState.user.username} !</span>}
-        </code>
+            </code>
 
             <br></br>
 
             <a>
-              You are here to reward yourself with delicious recipes.
+                You are here to reward yourself with delicious recipes.
 
                 <br></br>
                 Enjoy your time here,
@@ -24,7 +25,7 @@ function Welcome() {
             </a>
 
             <div>
-                <img src={logo} alt="Yummy Now Logo" width="500" height="500" />
+                <img src={logo} alt="Yummy Now Logo" width="500" height="500"/>
             </div>
         </>
     );

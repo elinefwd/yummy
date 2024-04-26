@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useState} from "react";
 import LoginForm from "../loginform/LoginForm";
 import RegistrationForm from "../registrationform/RegistrationForm";
 import "./Home.css";
@@ -34,8 +34,9 @@ function Home() {
                 <button onClick={handleRegisterButtonClick}>Registrate</button>
             </div>
 
-            <LoginForm showLogin={showLoginModal} handleCloseLogin={handleCloseLoginModal} />
-            <RegistrationForm showRegistration={showRegistrationModal} handleCloseRegistration={handleCloseRegistrationModal} />
+            <LoginForm showLogin={showLoginModal} handleCloseLogin={handleCloseLoginModal}/>
+            <RegistrationForm showRegistration={showRegistrationModal}
+                              handleCloseRegistration={handleCloseRegistrationModal}/>
         </>
     );
 }
