@@ -1,6 +1,6 @@
 
 import './App.css'
-import Navigation from "./components/navigation/navigation.jsx";
+import Navigation from "./components/Navigation/navigation.jsx";
 import Home from "./pages/home/Home.jsx"
 import Favorites from "./pages/favorites/Favorites.jsx"
 import Questions from "./pages/questions/Questions.jsx"

@@ -1,6 +1,5 @@
 import axios from "axios";
 
-// import { useState, useEffect } from "react";
 
 async function fetchData() {
     const API_URL =
@@ -8,10 +7,6 @@ async function fetchData() {
 
     try {
         const response = await axios.get(API_URL);
-
-        // const data = response.data.hits[0].recipe.label;
-        console.log(response.data);
-
 
         const hits = response.data.hits.slice(0, 5);
 
@@ -36,7 +31,7 @@ async function fetchData() {
 
 
     } catch (error) {
-        console.error(error);
+
         throw new Error("The page has not been found. We apologize for the inconvenience.");
     }
 }

@@ -1,6 +1,6 @@
 import {useState} from "react";
-import fetchData from "../../components/randomRequest/RandomRequest";
-import Card from "../../components/recipeCard/RecipeCard.jsx";
+import fetchData from "../../components/RandomRequest/RandomRequest";
+import Card from "../../components/RecipeCard/RecipeCard.jsx";
 import "./Random.css";
 
 function Random() {

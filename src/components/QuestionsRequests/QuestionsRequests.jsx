@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import Card from '../recipeCard/RecipeCard'; // Make sure this path is correct
+import Card from '../RecipeCard/RecipeCard'; // Make sure this path is correct
 import './QuestionsRequests.css';
 import Button from "../Button.jsx";
 import axios from "axios"; // Make sure this path is correct
