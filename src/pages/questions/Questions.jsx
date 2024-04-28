@@ -1,5 +1,5 @@
 
-import RecipeSearchAndDisplay from '../../components/questionsRequests/QuestionsRequests.jsx';
+import RecipeSearchAndDisplay from '../../components/QuestionsRequests/QuestionsRequests.jsx';
 
 const QuestionsPage = () => {
     return (

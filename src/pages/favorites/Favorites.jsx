@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
-import Card from '../../components/recipeCard/RecipeCard';
+import Card from '../../components/RecipeCard/RecipeCard';
 import {AuthContext} from '../../components/AuthContextProvider/AuthContextProvider.jsx';
 import handleLikeHelper from "../../helpers/likeHelper.jsx";
 import handleRemoveHelper from "../../helpers/removeHelper.jsx";

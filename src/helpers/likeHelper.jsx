@@ -18,7 +18,7 @@ const handleLikeHelper = async (authState, recipe, jwt, updateLikedRecipes, setL
             updateLikedRecipes(updatedLikedRecipes);
             setLiked(true);
         } catch (error) {
-            console.error('Error while liking the recipe:', error);
+            throw new Error("The page has not been found. We apologize for the inconvenience.");
         }
     } else {
         setShowPopup(true); // Show the popup for not logged in users
