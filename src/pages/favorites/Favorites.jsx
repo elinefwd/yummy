@@ -54,6 +54,10 @@ function Favorites() {
 
     return (
         <div>
+        <header>
+            <h1>My Favorites</h1>
+        </header>
+        <main>
             {error && <p className="error-message">{error}</p>}
 
             {favorites.length > 0 ? (
@@ -69,6 +73,13 @@ function Favorites() {
             ) : (
                 <p>No favorites yet.</p>
             )}
+        </main>
+
+            <footer>
+                <code>
+                <p>&copy; 2024 Yummy Now. All rights reserved.</p>
+                </code>
+            </footer>
         </div>
     );
 }

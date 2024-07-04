@@ -19,14 +19,28 @@ function Random() {
 
     return (
         <>
-            <button onClick={handleButtonClick}>Click me for some random recipes</button>
+            <header>
+                <h1>Random Recipes</h1>
+            </header>
+            <main>
+            <div className="random-container">
+            <p>Click the button below to get some random recipes!</p>
+            <button type="button" onClick={handleButtonClick}>Click me for some random recipes</button>
             {error && <p className="error-message">{error}</p>}
+            </div>
             <div className="recipes-container">
                 {recipes.map((recipe, index) => (
                     <Card key={recipe.uri || index} recipe={recipe}/>
                 ))}
             </div>
-            <p>Laat je verassen door random opties.</p>
+
+        </main>
+
+            <footer>
+                <code>
+                <p>&copy; 2024 Yummy Now. All rights reserved.</p>
+                </code>
+            </footer>
         </>
     );
 }

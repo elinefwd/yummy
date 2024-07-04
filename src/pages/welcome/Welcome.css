@@ -15,3 +15,18 @@ code {
     margin-top: 3em;
 }
 
+.welcome-container{
+    background-image: url('/public/smiley.png'), url('/public/smiley.png');
+    background-repeat: no-repeat;
+    background-position: left center, right center;
+    padding: 5em 5em 5em 5em;
+    background-size: 10em 10em, 10em 10em;
+}
+
+.logo-container{
+    background-image: url('/src/assets/ynl/yummynowlogo.png');
+    display: flex;
+    justify-content: center;
+    margin-top: 3em;
+    background-size: 15em 15em, 15em 15em;
+}

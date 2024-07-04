@@ -27,3 +27,11 @@ div {
     margin-top: 25px;
     /*border: 2px solid #000;*/
 }
+
+.card {
+    background-image: url('/public/basil.png'), url('/public/basil.png');
+    background-repeat: no-repeat;
+    background-position: left top, right top;
+    padding: 5em 5em 5em 5em;
+    background-size: 15em 15em, 15em 15em;
+}

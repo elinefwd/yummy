@@ -48,7 +48,7 @@ function Navigation() {
                     </li>
                 </ul>
                 {authState.user && (
-                    <Button onClick={logout} type="button" text="Logout" className="logout-button"/>
+                    <Button type="submit" onClick={logout} type="button" text="Logout" className="logout-button"/>
                 )}
             </div>
         </nav>

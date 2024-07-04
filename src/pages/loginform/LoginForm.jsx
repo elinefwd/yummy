@@ -56,7 +56,7 @@ const LoginForm = ({showLogin, handleCloseLogin}) => {
     return (
         <section className="modal">
             <article className="modal-content">
-                <button className="close" onClick={handleCloseLogin}>Close</button>
+                <button type="submit" className="close" onClick={handleCloseLogin}>Close</button>
                 <h2>Login Form</h2>
                 <form onSubmit={handleFormSubmit} className="login-form">
                     <fieldset>

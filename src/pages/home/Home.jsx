@@ -27,16 +27,27 @@ function Home() {
 
     return (
         <>
+            <header>
             <h1>Yummy Now</h1>
+            </header>
+
+            <main>
             <div className="card">
-                <button onClick={handleLoginButtonClick}>Login</button>
+                <button type="button" onClick={handleLoginButtonClick}>Login</button>
                 <p></p>
-                <button onClick={handleRegisterButtonClick}>Registrate</button>
+                <button type="button" onClick={handleRegisterButtonClick}>Registrate</button>
             </div>
 
             <LoginForm showLogin={showLoginModal} handleCloseLogin={handleCloseLoginModal}/>
             <RegistrationForm showRegistration={showRegistrationModal}
                               handleCloseRegistration={handleCloseRegistrationModal}/>
+            </main>
+
+            <footer>
+                <code>
+                <p>&copy; 2024 Yummy Now. All rights reserved.</p>
+                </code>
+            </footer>
         </>
     );
 }
