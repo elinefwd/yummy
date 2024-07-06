@@ -4,6 +4,9 @@ import Card from '../../components/RecipeCard/RecipeCard';
 import {AuthContext} from '../../components/AuthContextProvider/AuthContextProvider.jsx';
 import handleLikeHelper from "../../helpers/likeHelper.jsx";
 import handleRemoveHelper from "../../helpers/removeHelper.jsx";
+import Header from "../../components/Header/Header.jsx";
+import Footer from "../../components/Footer/Footer.jsx";
+import Alert from "../../components/Alert/Alert.jsx";
 
 function Favorites() {
     const [favorites, setFavorites] = useState([]);
@@ -54,9 +57,7 @@ function Favorites() {
 
     return (
         <div>
-        <header>
-            <h1>My Favorites</h1>
-        </header>
+            <Header title="My favorites" />
         <main>
             {error && <p className="error-message">{error}</p>}
 
@@ -71,15 +72,12 @@ function Favorites() {
                     />
                 ))
             ) : (
-                <p>No favorites yet.</p>
+                <Alert message="Recipes will automatically appear here once liked." type="warning" />
             )}
         </main>
 
-            <footer>
-                <code>
-                <p>&copy; 2024 Yummy Now. All rights reserved.</p>
-                </code>
-            </footer>
+
+            <Footer content="© 2024 Yummy Now" useCodeWrapper={false} />
         </div>
     );
 }

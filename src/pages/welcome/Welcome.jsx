@@ -2,12 +2,15 @@ import {useContext} from 'react';
 import {AuthContext} from '../../components/AuthContextProvider/AuthContextProvider';
 import './Welcome.css';
 import logo from '../../assets/ynl/yummynowlogo.png';
+import Header from "../../components/Header/Header.jsx";
+import Footer from "../../components/Footer/Footer.jsx";
 
 function Welcome() {
     const {authState} = useContext(AuthContext);
 
     return (
         <>
+            <Header title="My Application" />
             <header>
             <code>
                 Welcome to Yummy Now
@@ -30,11 +33,8 @@ function Welcome() {
             </div>
                 </div>
             </main>
-            <footer>
-                <code>
-                <p>&copy; 2024 Yummy Now. All rights reserved.</p>
-                </code>
-            </footer>
+
+            <Footer content="© 2024 Yummy Now" useCodeWrapper={true} />
 
         </>
 

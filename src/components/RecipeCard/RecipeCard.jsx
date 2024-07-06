@@ -4,7 +4,7 @@ import './RecipeCard.css';
 import {AuthContext} from '../AuthContextProvider/AuthContextProvider';
 import handleLikeHelper from "../../helpers/likeHelper.jsx";
 import handleRemoveHelper from "../../helpers/removeHelper.jsx";
-import Button from "../Button.jsx";
+import Button from "../Button/Button.jsx";
 
 function Card({recipe, isFavoritePage = false}) {
     const {authState, updateLikedRecipes} = useContext(AuthContext);

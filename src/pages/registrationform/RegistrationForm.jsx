@@ -1,7 +1,7 @@
 import {useState} from "react";
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import Button from "../../components/Button.jsx"; // Import Axios
+import Button from "../../components/Button/Button.jsx"; // Import Axios
 
 function RegistrationForm({showRegistration, handleCloseRegistration}) {
     const [username, setUsername] = useState(""); // Change state variable to 'username'

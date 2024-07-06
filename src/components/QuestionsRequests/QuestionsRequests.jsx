@@ -1,8 +1,10 @@
 import {useState} from 'react';
 import Card from '../RecipeCard/RecipeCard'; // Make sure this path is correct
 import './QuestionsRequests.css';
-import Button from "../Button.jsx";
-import axios from "axios"; // Make sure this path is correct
+import Button from "../Button/Button.jsx";
+import axios from "axios";
+import RadioGroup from "../Radiogroup/Radiogroup.jsx";
+import Alert from "../Alert/Alert.jsx"; // Make sure this path is correct
 
 
 function RecipeSearchAndDisplay() {
@@ -39,6 +41,7 @@ function RecipeSearchAndDisplay() {
         } catch (error) {
             console.error('Error fetching recipes:', error);
             setRecipes([]);
+
         }
     };
 
@@ -54,70 +57,44 @@ function RecipeSearchAndDisplay() {
             <form onSubmit={handleSubmit}>
                 <fieldset>
                     <legend>Find a Recipe</legend>
+                    <RadioGroup
+                        legend="Is there a special diet?"
+                        name="diet"
+                        options={[
+                            { value: 'vegan', label: 'Vegan' },
+                            { value: 'vegetarian', label: 'Vegetarian' },
+                            { value: 'anything', label: 'Anything' }
+                        ]}
+                        selectedValue={diet}
+                        onChange={value => setDiet(value)}
+                    />
 
-                    {/* Diet Selection */}
-                    <div>
-                        <p>Is there a special diet?</p>
-                        <label><input type="radio" name="diet" value="vegan" onChange={() => {
-                            setDiet('vegan');
-                            setIsDietSelected(true);
-                        }} checked={diet === 'vegan'}/> Vegan</label>
-                        <label><input type="radio" name="diet" value="vegetarian" onChange={() => {
-                            setDiet('vegetarian');
-                            setIsDietSelected(true);
-                        }} checked={diet === 'vegetarian'}/> Vegetarian</label>
-                        <label><input type="radio" name="diet" value="anything" onChange={() => {
-                            setDiet('anything');
-                            setIsDietSelected(false);
-                        }} checked={diet === 'anything'}/> Anything</label>
-                    </div>
+                    <RadioGroup
+                        legend="What type of meal are you looking for?"
+                        name="mealType"
+                        options={[
+                            { value: 'breakfast', label: 'Breakfast' },
+                            { value: 'lunch', label: 'Lunch' },
+                            { value: 'dinner', label: 'Dinner' },
+                            { value: 'snack', label: 'Snack' },
+                            { value: 'anything', label: 'Anything' }
+                        ]}
+                        selectedValue={mealType}
+                        onChange={value => setMealType(value)}
+                    />
 
-                    {/* Meal Type Selection */}
-                    <div>
-                        <p>What type of meal are you looking for?</p>
-                        <label><input type="radio" name="mealType" value="breakfast" onChange={() => {
-                            setMealType('breakfast');
-                            setIsMealTypeSelected(true);
-                        }} checked={mealType === 'breakfast'}/> Breakfast</label>
-                        <label><input type="radio" name="mealType" value="lunch" onChange={() => {
-                            setMealType('lunch');
-                            setIsMealTypeSelected(true);
-                        }} checked={mealType === 'lunch'}/> Lunch</label>
-                        <label><input type="radio" name="mealType" value="dinner" onChange={() => {
-                            setMealType('dinner');
-                            setIsMealTypeSelected(true);
-                        }} checked={mealType === 'dinner'}/> Dinner</label>
-                        <label><input type="radio" name="mealType" value="snack" onChange={() => {
-                            setMealType('snack');
-                            setIsMealTypeSelected(true);
-                        }} checked={mealType === 'snack'}/> Snack</label>
-                        <label><input type="radio" name="mealType" value="anything" onChange={() => {
-                            setMealType('anything');
-                            setIsMealTypeSelected(false);
-                        }} checked={mealType === 'anything'}/> Anything</label>
-                    </div>
-
-                    {/* Cuisine Type Selection */}
-                    <div>
-                        <p>Which cuisine would you like to try?</p>
-                        <label><input type="radio" name="cuisineType" value="italian" onChange={() => {
-                            setCuisineType('italian');
-                            setIsCuisineTypeSelected(true);
-                        }} checked={cuisineType === 'italian'}/> Italian</label>
-                        <label><input type="radio" name="cuisineType" value="japanese" onChange={() => {
-                            setCuisineType('japanese');
-                            setIsCuisineTypeSelected(true);
-                        }} checked={cuisineType === 'japanese'}/> Japanese</label>
-                        <label><input type="radio" name="cuisineType" value="mexican" onChange={() => {
-                            setCuisineType('mexican');
-                            setIsCuisineTypeSelected(true);
-                        }} checked={cuisineType === 'mexican'}/> Mexican</label>
-                        <label><input type="radio" name="cuisineType" value="maybe" onChange={() => {
-                            setCuisineType('maybe');
-                            setIsCuisineTypeSelected(false);
-                        }} checked={cuisineType === 'maybe'}/> Global</label>
-                    </div>
-
+                    <RadioGroup
+                        legend="Which cuisine would you like to try?"
+                        name="cuisineType"
+                        options={[
+                            { value: 'italian', label: 'Italian' },
+                            { value: 'japanese', label: 'Japanese' },
+                            { value: 'mexican', label: 'Mexican' },
+                            { value: 'maybe', label: 'Global' }
+                        ]}
+                        selectedValue={cuisineType}
+                        onChange={value => setCuisineType(value)}
+                    />
                     <Button type="submit" text="Find recipes" onClick={handleSubmit}/>
 
                 </fieldset>
@@ -138,12 +115,14 @@ function RecipeSearchAndDisplay() {
             ) : null}
 
             {!((diet === 'anything' && mealType === 'anything' && cuisineType === 'maybe')) ? null : (
-                <p>Please adjust your search criteria.</p>
+                <Alert message="Please adjust your search criteria." type="warning" />
             )}
         </div>
 
 
+
     );
+
 }
 
 export default RecipeSearchAndDisplay;
