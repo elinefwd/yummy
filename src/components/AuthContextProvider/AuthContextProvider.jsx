@@ -30,25 +30,19 @@ const AuthProvider = ({children}) => {
         if (token) {
             const decoded = jwtDecode(token);
 
+            let likedRecipes = [];
             if (decoded.likedRecipes) {
-                setAuthState({
-                    user: {
-                        username: decoded.sub,
-                        id: decoded.id,
-                    },
-                    status: 'done',
-                    likedRecipes: decoded.likedRecipes
-                });
-            } else {
-                setAuthState({
-                    user: {
-                        username: decoded.sub,
-                        id: decoded.id,
-                    },
-                    status: 'done',
-                    likedRecipes: []
-                });
+                likedRecipes = decoded.likedRecipes;
             }
+
+            setAuthState({
+                user: {
+                    username: decoded.sub,
+                    id: decoded.id,
+                },
+                status: 'done',
+                likedRecipes: likedRecipes
+            });
         } else {
             setAuthState({
                 user: null,
@@ -57,6 +51,7 @@ const AuthProvider = ({children}) => {
             });
         }
     }, []);
+
 
     const login = async (jwt) => {
         const decoded = jwtDecode(jwt);
