@@ -4,7 +4,7 @@ import {AuthContext} from '../AuthContextProvider/AuthContextProvider';
 // import logoyn from '../../assets/ynl/logoyn.png';
 import logo from '../../assets/ynl/yummynowlogo.png';
 import './navigation.css';
-import Button from "../Button.jsx";
+import Button from "../Button/Button.jsx";
 
 function Navigation() {
     const {authState, logout} = useContext(AuthContext);

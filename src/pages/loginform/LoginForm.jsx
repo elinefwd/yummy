@@ -2,7 +2,7 @@ import {useState, useContext, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import {AuthContext} from '../../components/AuthContextProvider/AuthContextProvider.jsx';
-import Button from "../../components/Button.jsx";
+import Button from "../../components/Button/Button.jsx";
 
 const LoginForm = ({showLogin, handleCloseLogin}) => {
     const [username, setUsername] = useState('');
@@ -87,11 +87,6 @@ const LoginForm = ({showLogin, handleCloseLogin}) => {
         </section>
     );
 
-
-    LoginForm.propTypes = {
-        showLogin: PropTypes.bool.isRequired,
-        handleCloseLogin: PropTypes.func.isRequired,
-    };
-}
+};
 
 export default LoginForm;

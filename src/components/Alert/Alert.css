@@ -1,0 +1,17 @@
+.alert {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.alert.success {
+    background-color: lightgreen;
+}
+
+.alert.error {
+    background-color: lightcoral;
+}
+
+.alert.warning {
+    background-color: lightsalmon;
+}

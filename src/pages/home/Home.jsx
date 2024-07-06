@@ -2,6 +2,8 @@ import {useState} from "react";
 import LoginForm from "../loginform/LoginForm";
 import RegistrationForm from "../registrationform/RegistrationForm";
 import "./Home.css";
+import Header from "../../components/Header/Header.jsx";
+import Footer from "../../components/Footer/Footer.jsx";
 
 function Home() {
     const [showLoginModal, setShowLoginModal] = useState(false);
@@ -27,9 +29,7 @@ function Home() {
 
     return (
         <>
-            <header>
-            <h1>Yummy Now</h1>
-            </header>
+            <Header title="Yummy Now" />
 
             <main>
             <div className="card">
@@ -44,9 +44,8 @@ function Home() {
             </main>
 
             <footer>
-                <code>
-                <p>&copy; 2024 Yummy Now. All rights reserved.</p>
-                </code>
+
+                <Footer content="© 2024 Yummy Now" useCodeWrapper={false} />
             </footer>
         </>
     );

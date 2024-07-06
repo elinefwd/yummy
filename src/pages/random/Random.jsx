@@ -2,6 +2,8 @@ import {useState} from "react";
 import fetchData from "../../components/RandomRequest/RandomRequest";
 import Card from "../../components/RecipeCard/RecipeCard.jsx";
 import "./Random.css";
+import Header from "../../components/Header/Header.jsx";
+import Footer from "../../components/Footer/Footer.jsx";
 
 function Random() {
     const [recipes, setRecipes] = useState([]);
@@ -19,12 +21,9 @@ function Random() {
 
     return (
         <>
-            <header>
-                <h1>Random Recipes</h1>
-            </header>
+            <Header title="Random recipes" />
             <main>
             <div className="random-container">
-            <p>Click the button below to get some random recipes!</p>
             <button type="button" onClick={handleButtonClick}>Click me for some random recipes</button>
             {error && <p className="error-message">{error}</p>}
             </div>
@@ -36,11 +35,8 @@ function Random() {
 
         </main>
 
-            <footer>
-                <code>
-                <p>&copy; 2024 Yummy Now. All rights reserved.</p>
-                </code>
-            </footer>
+
+            <Footer content="© 2024 Yummy Now" useCodeWrapper={true} />
         </>
     );
 }
