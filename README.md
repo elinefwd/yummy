@@ -3,6 +3,15 @@
 
 # Installationguide
 
+Table of contents
+1. Introduction
+2. Screenshot
+3. Requirements
+4. Run the project
+5. Extra command’s
+6. Testusage
+7. License
+
 ## 1.Introduction
 Welcome to the Yummynow project!
 Yummynow is a application programming interface (API) that allows users to search for recipes.
@@ -59,6 +68,11 @@ username: elinevdw
 password: wachtwoord
 
 ```
+
+## 7.Licence 
+
+Yummynow copyright 2024. All rights reserved.
+
 
 Enjoy! :)
 
